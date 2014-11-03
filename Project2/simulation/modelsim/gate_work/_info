@@ -1,0 +1,26 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\jspark\Desktop\cs3220-examples\Project2\simulation\modelsim
+vProject2
+!i10b 1
+!s100 ^zTh`;NGzbA1bAKb64MHP1
+IN0mZ_^Q]UeG<F>GV045FR1
+VNeEM]0bORdaegVMY8MjA_3
+Z1 dC:\Users\jspark\Desktop\cs3220-examples\Project2\simulation\modelsim
+w1412797971
+8Debug.vo
+FDebug.vo
+L0 31
+OV;L;10.1d;51
+r1
+!s85 0
+31
+!s108 1412798129.648000
+!s107 Debug.vo|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+.|Debug.vo|
+!s101 -O0
+o-vlog01compat -work work -O0
+!s92 -vlog01compat -work work +incdir+. -O0
+n@project2
