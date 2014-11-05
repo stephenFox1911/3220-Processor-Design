@@ -15,7 +15,7 @@ module RegisterFile (clk, wrtEn, wrtIndex, rdIndex1, rdIndex2, dataIn, dataOut1,
 		if (wrtEn == 1'b1)
 			data[wrtIndex] <= dataIn;
 			
-	assign dataOut1 = data[rdIndex1];
-	assign dataOut2 = data[rdIndex2];
+	assign dataOut1 = (wrtIndex == rdIndex1 && wrtEn == 1'b1) ? dataIn : data[rdIndex1]
+	assign dataOut2 = (wrtIndex == rdIndex2 && wrtEn == 1'b1) ? dataIn : data[rdIndex2]
 	
 endmodule

@@ -129,7 +129,9 @@ module Project2(SW,KEY,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3,CLOCK_50);
 	negRegister dataReg (clk, reset, 1'b1, aluOut, addrMemIn);
 	DataMemory #(DMEM_ADDR_BIT_WIDTH, DMEM_DATA_BIT_WIDTH) dataMem (.clk(clk), .addr(addrMemIn[DMEM_ADDR_BITS_HI - 1: DMEM_ADDR_BITS_LO]), .dataWrtEn(dataWrtEn), .dataIn(dataOut2), .dataOut(dataWord));
 	Mux4to1 muxMemOut (memOutSel, aluOut, dataMemoryOut, pcLogicOut, 32'd0, dataIn);
+	//decideswhat goes into reg file
 	Mux4to1 muxDataMemOut (dataMemOutSel, dataWord, switchOut, keyOut, 32'd0, dataMemoryOut);
+	//decides what comes out of data mem
 	
 	// Branch Address Calculator
 	BranchAddrCalculator bac (.nextPc(pcLogicOut), .pcRel(seImm), .branchAddr(branchPc));
