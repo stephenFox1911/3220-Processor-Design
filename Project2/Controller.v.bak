@@ -135,7 +135,7 @@ module Controller (inst, aluCmpIn, sndOpcode, dRegAddr, s1RegAddr, s2RegAddr, im
 								s1RegAddr 		<= inst[19:16];
 								s2RegAddr 		<= 4'd0;
 								imm 		 		<= inst[15:0] << 2; // relative pc
-								regFileWrtEn 	<= 1'b1; // write to register
+								regFileWrtEn 	<= 1'b1; // no write to register
 								//dataWrtEn 		<= 1'b0; // no write to data memory
 								immSel			<= 1'b1; // relative pc
 								memOutSel		<= 2'b10; // load data from memory

@@ -114,7 +114,7 @@ module Project2(SW,KEY,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3,CLOCK_50);
 							.regFileWrtEn(regFileEn), .immSel(immSel), .memOutSel(memOutSel), .pcSel(pcSel), .isLoad(isLoad), .isStore(isStore));
   
 	// RegisterFile
-	RegisterFile regFile (.clk(clk), .wrtEn(regWrEnOut), .wrtIndex(regWrAddrOut), .rdIndex1(rdIndex1), .rdIndex2(rdIndex2), .dataIn(dataIn), .dataOut1(dataOut1), .dataOut2(dataOut2));
+	RegisterFile regFile (.clk(clk), .wrtEn(regFileEn), .wrtIndex(wrtIndex), .rdIndex1(rdIndex1), .rdIndex2(rdIndex2), .dataIn(dataIn), .dataOut1(dataOut1), .dataOut2(dataOut2));
  
 	// ALU
 	Alu alu1 (.ctrl(sndOpcode), .rawDataIn1(dataOut1), .rawDataIn2(aluIn2), .dataOut(aluOut), .cmpOut(cmpOut_top)); 
@@ -124,31 +124,18 @@ module Project2(SW,KEY,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3,CLOCK_50);
  
 	// ALU Mux
 	Mux2to1 #(.DATA_BIT_WIDTH(DBITS)) muxAluIn (immSel, dataOut2, seImm, aluIn2);
-	
-	
-	//pipeline register
-	wire regWrEnOut, memWrEnOut, branchEnOut, isLoadOut, isStoreOut;
-	wire [1:0] mulSelOut;
-	wire [DBITS - 1:0] aluOutOut, PCPipe;
-	wire [3:0] regWrAddrOut; 
-	pipeline_reg pipe_reg (.clk(clk), .reset(reset), .buffWrEn(1'b1), .regWrEn(regFileEn), .regWrAddr(wrtIndex), .memWrEn(dataWrtEn), .mulSel(memOutSel),
-									.aluOut(aluOut), .PC(pcLogicOut), .isLoad(isLoad), .isStore(isStore), .regWrEnOut(regWrEnOut), .regWrAddrOut(regWrAddrOut), .memWrEnOut(memWrEnOut),
-									.mulSelOut(mulSelOut), .aluOutOut(aluOutOut), .PCOut(PCPipe), .isLoadOut(isLoadOut), .isStoreOut(isStoreOut));
-									
-									
+
 	// Data Memory and I/O
-	negRegister dataReg (clk, reset, 1'b1, aluOutOut, addrMemIn);
-	DataMemory #(DMEM_ADDR_BIT_WIDTH, DMEM_DATA_BIT_WIDTH) dataMem (.clk(clk), .addr(addrMemIn[DMEM_ADDR_BITS_HI - 1: DMEM_ADDR_BITS_LO]), .dataWrtEn(memWrenOut), .dataIn(dataOut2), .dataOut(dataWord));
-	Mux4to1 muxMemOut (mulSelOut, aluOutOut, dataMemoryOut, PCPipe, 32'd0, dataIn);
-	//decides what goes into reg file
+	negRegister dataReg (clk, reset, 1'b1, aluOut, addrMemIn);
+	DataMemory #(DMEM_ADDR_BIT_WIDTH, DMEM_DATA_BIT_WIDTH) dataMem (.clk(clk), .addr(addrMemIn[DMEM_ADDR_BITS_HI - 1: DMEM_ADDR_BITS_LO]), .dataWrtEn(dataWrtEn), .dataIn(dataOut2), .dataOut(dataWord));
+	Mux4to1 muxMemOut (memOutSel, aluOut, dataMemoryOut, pcLogicOut, 32'd0, dataIn);
 	Mux4to1 muxDataMemOut (dataMemOutSel, dataWord, switchOut, keyOut, 32'd0, dataMemoryOut);
-	//decides what comes out of data mem
 	
 	// Branch Address Calculator
 	BranchAddrCalculator bac (.nextPc(pcLogicOut), .pcRel(seImm), .branchAddr(branchPc));
 	
 	// IO controller
-	IO_controller ioCtrl (.dataAddr(aluOutOut), .isLoad(isLoadOut), .isStore(isStoreOut), .dataWrtEn(dataWrtEn), .dataMemOutSel(dataMemOutSel), 
+	IO_controller ioCtrl (.dataAddr(aluOut), .isLoad(isLoad), .isStore(isStore), .dataWrtEn(dataWrtEn), .dataMemOutSel(dataMemOutSel), 
 									.swEn(swEn), .keyEn(keyEn), .ledrEn(ledrEn), .ledgEn(ledgEn), .hexEn(hexEn));
 
 	// KEYS, SWITCHES, HEXS, and LEDS are memeory mapped IO

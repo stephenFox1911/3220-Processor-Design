@@ -1,6 +1,6 @@
 Assembler report for Debug
-Wed Oct 15 14:25:57 2014
-Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+Thu Nov 06 18:11:40 2014
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
 ---------------------
@@ -10,8 +10,8 @@ Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/jspark/Desktop/cs3220-examples/Project2/Debug.sof
-  6. Assembler Device Options: C:/Users/jspark/Desktop/cs3220-examples/Project2/Debug.pof
+  5. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.sof
+  6. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.pof
   7. Assembler Messages
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Wed Oct 15 14:25:57 2014 ;
+; Assembler Status      ; Successful - Thu Nov 06 18:11:40 2014 ;
 ; Revision Name         ; Debug                                 ;
 ; Top-level Entity Name ; Project2                              ;
 ; Family                ; Cyclone II                            ;
@@ -78,53 +78,53 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------+----------+---------------+
 
 
-+------------------------------------------------------------+
-; Assembler Generated Files                                  ;
-+------------------------------------------------------------+
-; File Name                                                  ;
-+------------------------------------------------------------+
-; C:/Users/jspark/Desktop/cs3220-examples/Project2/Debug.sof ;
-; C:/Users/jspark/Desktop/cs3220-examples/Project2/Debug.pof ;
-+------------------------------------------------------------+
++-------------------------------------------------------------------------+
+; Assembler Generated Files                                               ;
++-------------------------------------------------------------------------+
+; File Name                                                               ;
++-------------------------------------------------------------------------+
+; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.sof ;
+; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.pof ;
++-------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/jspark/Desktop/cs3220-examples/Project2/Debug.sof ;
-+----------------+---------------------------------------------------------------------+
-; Option         ; Setting                                                             ;
-+----------------+---------------------------------------------------------------------+
-; Device         ; EP2C20F484C7                                                        ;
-; JTAG usercode  ; 0xFFFFFFFF                                                          ;
-; Checksum       ; 0x0033BF99                                                          ;
-+----------------+---------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.sof ;
++----------------+----------------------------------------------------------------------------------+
+; Option         ; Setting                                                                          ;
++----------------+----------------------------------------------------------------------------------+
+; Device         ; EP2C20F484C7                                                                     ;
+; JTAG usercode  ; 0xFFFFFFFF                                                                       ;
+; Checksum       ; 0x0033C82F                                                                       ;
++----------------+----------------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/jspark/Desktop/cs3220-examples/Project2/Debug.pof ;
-+--------------------+-----------------------------------------------------------------+
-; Option             ; Setting                                                         ;
-+--------------------+-----------------------------------------------------------------+
-; Device             ; EPCS16                                                          ;
-; JTAG usercode      ; 0x00000000                                                      ;
-; Checksum           ; 0x1DAED6AB                                                      ;
-; Compression Ratio  ; 2                                                               ;
-+--------------------+-----------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.pof ;
++--------------------+------------------------------------------------------------------------------+
+; Option             ; Setting                                                                      ;
++--------------------+------------------------------------------------------------------------------+
+; Device             ; EPCS16                                                                       ;
+; JTAG usercode      ; 0x00000000                                                                   ;
+; Checksum           ; 0x1DB1FD8D                                                                   ;
+; Compression Ratio  ; 2                                                                            ;
++--------------------+------------------------------------------------------------------------------+
 
 
 +--------------------+
 ; Assembler Messages ;
 +--------------------+
 Info: *******************************************************************
-Info: Running Quartus II 32-bit Assembler
+Info: Running Quartus II 64-Bit Assembler
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Wed Oct 15 14:25:53 2014
+    Info: Processing started: Thu Nov 06 18:11:38 2014
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off Project2 -c Debug
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
-Info: Quartus II 32-bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 350 megabytes
-    Info: Processing ended: Wed Oct 15 14:25:57 2014
-    Info: Elapsed time: 00:00:04
+Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 417 megabytes
+    Info: Processing ended: Thu Nov 06 18:11:40 2014
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 
 
