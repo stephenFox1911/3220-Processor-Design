@@ -1,0 +1,89 @@
+Restore Archived Project report for Debug
+Mon Sep 29 20:39:57 2014
+Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Restore Archived Project Summary
+  3. Restore Archived Project Messages
+  4. Files Restored
+  5. Files Not Restored
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------+
+; Restore Archived Project Summary                                        ;
++---------------------------------+---------------------------------------+
+; Restore Archived Project Status ; Successful - Mon Sep 29 20:39:57 2014 ;
+; Revision Name                   ; Debug                                 ;
+; Top-level Entity Name           ; Project2                              ;
+; Family                          ; Cyclone II                            ;
++---------------------------------+---------------------------------------+
+
+
++-----------------------------------+
+; Restore Archived Project Messages ;
++-----------------------------------+
+Info: Successfully restored 'C:/Users/jspark/Desktop/Project2/Project2.qar' into the 'C:\\Users\\jspark\\Desktop\\Project2/' directory
+Info: Generated report 'Debug.restore.rpt'
+Info (23030): Evaluation of Tcl script c:/altera/13.0sp1/quartus/common/tcl/apps/qpm/qar.tcl was successful
+Info: Quartus II 32-bit Shell was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 207 megabytes
+    Info: Processing ended: Mon Sep 29 20:39:57 2014
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+
++----------------------------------+
+; Files Restored                   ;
++----------------------------------+
+; File Name                        ;
++----------------------------------+
+; Debug.qsf                        ;
+; Pll.ppf                          ;
+; Pll.qip                          ;
+; Pll.v                            ;
+; Pll_bb.v                         ;
+; Project2.qpf                     ;
+; Project2.qsf                     ;
+; Project2.v                       ;
+; Project2_assignment_defaults.qdf ;
+; SevenSeg.v                       ;
+; Sorter2.a32                      ;
+; Sorter2.mif                      ;
+; Test2.a32                        ;
+; Test2.mif                        ;
+; Timing.sdc                       ;
+; assignment_defaults.qdf          ;
++----------------------------------+
+
+
++--------------------+
+; Files Not Restored ;
++--------------------+
+; File Name          ;
++--------------------+
+
+

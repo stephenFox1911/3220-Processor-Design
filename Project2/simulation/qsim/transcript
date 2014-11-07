@@ -1,7 +1,0 @@
-# do Project2.do 
-# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
-# ** Error: (vlog-7) Failed to open design unit file "Debug.vo" in read mode.
-# 
-# No such file or directory. (errno = ENOENT)
-# ** Error: c:/altera/13.0sp1/modelsim_ase/win32aloem/vlog failed.
-# Executing ONERROR command at macro ./Project2.do line 3
