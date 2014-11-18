@@ -1,0 +1,1191 @@
+Analysis & Synthesis report for Debug
+Tue Nov 18 05:06:38 2014
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis RAM Summary
+  9. Registers Removed During Synthesis
+ 10. General Register Statistics
+ 11. Inverted Register Statistics
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Source assignments for DataMemory:dataMem|altsyncram:data_rtl_0|altsyncram_ghc1:auto_generated
+ 14. Parameter Settings for User Entity Instance: Top-level Entity: |Project2
+ 15. Parameter Settings for User Entity Instance: ClkDivider:clkdi
+ 16. Parameter Settings for User Entity Instance: Register:pc
+ 17. Parameter Settings for User Entity Instance: PcLogic:pcLogic
+ 18. Parameter Settings for User Entity Instance: Mux4to1:muxPcOut
+ 19. Parameter Settings for User Entity Instance: InstMemory:instMem
+ 20. Parameter Settings for User Entity Instance: Controller:cont
+ 21. Parameter Settings for User Entity Instance: RegisterFile:regFile
+ 22. Parameter Settings for User Entity Instance: Alu:alu1
+ 23. Parameter Settings for User Entity Instance: SignExtension:se
+ 24. Parameter Settings for User Entity Instance: Mux2to1:muxAluIn
+ 25. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg
+ 26. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:regWrEnBuff
+ 27. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:memWrEnBuff
+ 28. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:mulSelBuff
+ 29. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:regWrAddrBuff
+ 30. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:aluOutBuff
+ 31. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:PCBuff
+ 32. Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:dataInBuff
+ 33. Parameter Settings for User Entity Instance: DataMemory:dataMem
+ 34. Parameter Settings for User Entity Instance: Mux4to1:muxMemOut
+ 35. Parameter Settings for User Entity Instance: BranchAddrCalculator:bac
+ 36. Parameter Settings for User Entity Instance: KeyD:key_d
+ 37. Parameter Settings for User Entity Instance: SWD:sw_d
+ 38. Parameter Settings for User Entity Instance: SWD:sw_d|ClkDivider:divider
+ 39. Parameter Settings for User Entity Instance: HEXD:hex_d
+ 40. Parameter Settings for User Entity Instance: ledrD:ledr_d
+ 41. Parameter Settings for User Entity Instance: ledgD:ledg_d
+ 42. Parameter Settings for User Entity Instance: Timer:timer_d
+ 43. Parameter Settings for User Entity Instance: Timer:timer_d|ClkDivider:divider
+ 44. Parameter Settings for Inferred Entity Instance: DataMemory:dataMem|altsyncram:data_rtl_0
+ 45. altsyncram Parameter Settings by Entity Instance
+ 46. Port Connectivity Checks: "Mux4to1:muxMemOut"
+ 47. Port Connectivity Checks: "pipeline_reg:pipe_reg"
+ 48. Port Connectivity Checks: "Controller:cont"
+ 49. Port Connectivity Checks: "Mux4to1:muxPcOut"
+ 50. Port Connectivity Checks: "Register:pc"
+ 51. Elapsed Time Per Partition
+ 52. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                         ;
++------------------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Tue Nov 18 05:06:38 2014           ;
+; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
+; Revision Name                      ; Debug                                           ;
+; Top-level Entity Name              ; Project2                                        ;
+; Family                             ; Cyclone II                                      ;
+; Total logic elements               ; 2,939                                           ;
+;     Total combinational functions  ; 2,407                                           ;
+;     Dedicated logic registers      ; 894                                             ;
+; Total registers                    ; 894                                             ;
+; Total pins                         ; 61                                              ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 65,536                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 0                                               ;
++------------------------------------+-------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP2C20F484C7       ;                    ;
+; Top-level entity name                                                      ; Project2           ; Debug              ;
+; Family name                                                                ; Cyclone II         ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; On                 ; Off                ;
+; Preserve fewer node names                                                  ; Off                ; On                 ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; Off                ; On                 ;
+; Power-Up Don't Care                                                        ; Off                ; On                 ;
+; Remove Redundant Logic Cells                                               ; On                 ; Off                ;
+; Auto RAM to Logic Cell Conversion                                          ; On                 ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; On                 ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; On                 ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; Off                ; Off                ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 4      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                             ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                         ; Library ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------+---------+
+; PcLogic.v                        ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/PcLogic.v              ;         ;
+; Alu.v                            ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/Alu.v                  ;         ;
+; InstMemory.v                     ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/InstMemory.v           ;         ;
+; Register.v                       ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/Register.v             ;         ;
+; Project2.v                       ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/Project2.v             ;         ;
+; SignExtension.v                  ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/SignExtension.v        ;         ;
+; Controller.v                     ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/Controller.v           ;         ;
+; Mux2to1.v                        ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/Mux2to1.v              ;         ;
+; RegisterFile.v                   ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/RegisterFile.v         ;         ;
+; DataMemory.v                     ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/DataMemory.v           ;         ;
+; BranchAddrCalculator.v           ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/BranchAddrCalculator.v ;         ;
+; Mux4to1.v                        ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/Mux4to1.v              ;         ;
+; pipeline_reg.v                   ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/pipeline_reg.v         ;         ;
+; bufRegister.v                    ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/bufRegister.v          ;         ;
+; KeyD.v                           ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/KeyD.v                 ;         ;
+; Timer.v                          ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/Timer.v                ;         ;
+; SWD.v                            ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/SWD.v                  ;         ;
+; ledrD.v                          ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/ledrD.v                ;         ;
+; HEXD.v                           ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/HEXD.v                 ;         ;
+; ledgD.v                          ; yes             ; User Verilog HDL File        ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/ledgD.v                ;         ;
+; altsyncram.tdf                   ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altsyncram.tdf                     ;         ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_ram_block.inc              ;         ;
+; lpm_mux.inc                      ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mux.inc                        ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_decode.inc                     ;         ;
+; aglobal130.inc                   ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc                     ;         ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_rdenreg.inc                      ;         ;
+; altrom.inc                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altrom.inc                         ;         ;
+; altram.inc                       ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altram.inc                         ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altdpram.inc                       ;         ;
+; db/altsyncram_ghc1.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project4/db/altsyncram_ghc1.tdf ;         ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                           ;
++---------------------------------------------+-------------------------+
+; Resource                                    ; Usage                   ;
++---------------------------------------------+-------------------------+
+; Estimated Total logic elements              ; 2,939                   ;
+;                                             ;                         ;
+; Total combinational functions               ; 2407                    ;
+; Logic element usage by number of LUT inputs ;                         ;
+;     -- 4 input functions                    ; 1663                    ;
+;     -- 3 input functions                    ; 432                     ;
+;     -- <=2 input functions                  ; 312                     ;
+;                                             ;                         ;
+; Logic elements by mode                      ;                         ;
+;     -- normal mode                          ; 2121                    ;
+;     -- arithmetic mode                      ; 286                     ;
+;                                             ;                         ;
+; Total registers                             ; 894                     ;
+;     -- Dedicated logic registers            ; 894                     ;
+;     -- I/O registers                        ; 0                       ;
+;                                             ;                         ;
+; I/O pins                                    ; 61                      ;
+; Total memory bits                           ; 65536                   ;
+; Embedded Multiplier 9-bit elements          ; 0                       ;
+; Maximum fan-out node                        ; ClkDivider:clkdi|clkReg ;
+; Maximum fan-out                             ; 893                     ;
+; Total fan-out                               ; 11933                   ;
+; Average fan-out                             ; 3.52                    ;
++---------------------------------------------+-------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                      ;
++-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                               ; Library Name ;
++-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+--------------+
+; |Project2                                 ; 2407 (53)         ; 894 (0)      ; 65536       ; 0            ; 0       ; 0         ; 61   ; 0            ; |Project2                                                                         ; work         ;
+;    |Alu:alu1|                             ; 369 (369)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Alu:alu1                                                                ; work         ;
+;    |BranchAddrCalculator:bac|             ; 30 (30)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|BranchAddrCalculator:bac                                                ; work         ;
+;    |ClkDivider:clkdi|                     ; 52 (52)           ; 33 (33)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|ClkDivider:clkdi                                                        ; work         ;
+;    |Controller:cont|                      ; 85 (85)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Controller:cont                                                         ; work         ;
+;    |DataMemory:dataMem|                   ; 0 (0)             ; 0 (0)        ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|DataMemory:dataMem                                                      ; work         ;
+;       |altsyncram:data_rtl_0|             ; 0 (0)             ; 0 (0)        ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|DataMemory:dataMem|altsyncram:data_rtl_0                                ; work         ;
+;          |altsyncram_ghc1:auto_generated| ; 0 (0)             ; 0 (0)        ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|DataMemory:dataMem|altsyncram:data_rtl_0|altsyncram_ghc1:auto_generated ; work         ;
+;    |HEXD:hex_d|                           ; 8 (8)             ; 16 (16)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|HEXD:hex_d                                                              ; work         ;
+;    |InstMemory:instMem|                   ; 270 (270)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|InstMemory:instMem                                                      ; work         ;
+;    |KeyD:key_d|                           ; 104 (104)         ; 5 (5)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|KeyD:key_d                                                              ; work         ;
+;    |Mux2to1:muxAluIn|                     ; 63 (63)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Mux2to1:muxAluIn                                                        ; work         ;
+;    |Mux4to1:muxMemOut|                    ; 64 (64)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Mux4to1:muxMemOut                                                       ; work         ;
+;    |Mux4to1:muxPcOut|                     ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Mux4to1:muxPcOut                                                        ; work         ;
+;    |PcLogic:pcLogic|                      ; 30 (30)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|PcLogic:pcLogic                                                         ; work         ;
+;    |Register:pc|                          ; 33 (33)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Register:pc                                                             ; work         ;
+;    |RegisterFile:regFile|                 ; 700 (700)         ; 512 (512)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|RegisterFile:regFile                                                    ; work         ;
+;    |SWD:sw_d|                             ; 111 (61)          ; 75 (42)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|SWD:sw_d                                                                ; work         ;
+;       |ClkDivider:divider|                ; 50 (50)           ; 33 (33)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|SWD:sw_d|ClkDivider:divider                                             ; work         ;
+;    |Timer:timer_d|                        ; 281 (280)         ; 99 (98)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Timer:timer_d                                                           ; work         ;
+;       |ClkDivider:divider|                ; 1 (1)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Timer:timer_d|ClkDivider:divider                                        ; work         ;
+;    |dec2_7seg:hex0Converter|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|dec2_7seg:hex0Converter                                                 ; work         ;
+;    |dec2_7seg:hex1Converter|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|dec2_7seg:hex1Converter                                                 ; work         ;
+;    |dec2_7seg:hex2Converter|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|dec2_7seg:hex2Converter                                                 ; work         ;
+;    |dec2_7seg:hex3Converter|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|dec2_7seg:hex3Converter                                                 ; work         ;
+;    |ledgD:ledg_d|                         ; 5 (5)             ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|ledgD:ledg_d                                                            ; work         ;
+;    |ledrD:ledr_d|                         ; 13 (13)           ; 10 (10)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|ledrD:ledr_d                                                            ; work         ;
+;    |pipeline_reg:pipe_reg|                ; 106 (0)           ; 104 (0)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg                                                   ; work         ;
+;       |bufRegister:PCBuff|                ; 32 (32)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:PCBuff                                ; work         ;
+;       |bufRegister:aluOutBuff|            ; 33 (33)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:aluOutBuff                            ; work         ;
+;       |bufRegister:dataInBuff|            ; 34 (34)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:dataInBuff                            ; work         ;
+;       |bufRegister:memWrEnBuff|           ; 0 (0)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:memWrEnBuff                           ; work         ;
+;       |bufRegister:mulSelBuff|            ; 1 (1)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:mulSelBuff                            ; work         ;
+;       |bufRegister:regWrAddrBuff|         ; 6 (6)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:regWrAddrBuff                         ; work         ;
+;       |bufRegister:regWrEnBuff|           ; 0 (0)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:regWrEnBuff                           ; work         ;
++-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                        ;
++------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
+; Name                                                                               ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF  ;
++------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
+; DataMemory:dataMem|altsyncram:data_rtl_0|altsyncram_ghc1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 2048         ; 32           ; 2048         ; 32           ; 65536 ; None ;
++------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+------+
+
+
++----------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                 ;
++----------------------------------------------+-----------------------------------------------------+
+; Register name                                ; Reason for Removal                                  ;
++----------------------------------------------+-----------------------------------------------------+
+; Timer:timer_d|old_cnt[0]                     ; Merged with Timer:timer_d|old_cntr[0]               ;
+; Timer:timer_d|old_cntr[1]                    ; Merged with Timer:timer_d|old_cnt[1]                ;
+; Timer:timer_d|old_cntr[2]                    ; Merged with Timer:timer_d|old_cnt[2]                ;
+; Timer:timer_d|old_cntr[3]                    ; Merged with Timer:timer_d|old_cnt[3]                ;
+; Timer:timer_d|old_cntr[4]                    ; Merged with Timer:timer_d|old_cnt[4]                ;
+; Timer:timer_d|old_cntr[5]                    ; Merged with Timer:timer_d|old_cnt[5]                ;
+; Timer:timer_d|old_cntr[6]                    ; Merged with Timer:timer_d|old_cnt[6]                ;
+; Timer:timer_d|old_cntr[7]                    ; Merged with Timer:timer_d|old_cnt[7]                ;
+; Timer:timer_d|old_cntr[8]                    ; Merged with Timer:timer_d|old_cnt[8]                ;
+; Timer:timer_d|old_cntr[9]                    ; Merged with Timer:timer_d|old_cnt[9]                ;
+; Timer:timer_d|old_cntr[10]                   ; Merged with Timer:timer_d|old_cnt[10]               ;
+; Timer:timer_d|old_cntr[11]                   ; Merged with Timer:timer_d|old_cnt[11]               ;
+; Timer:timer_d|old_cntr[12]                   ; Merged with Timer:timer_d|old_cnt[12]               ;
+; Timer:timer_d|old_cntr[13]                   ; Merged with Timer:timer_d|old_cnt[13]               ;
+; Timer:timer_d|old_cntr[14]                   ; Merged with Timer:timer_d|old_cnt[14]               ;
+; Timer:timer_d|old_cntr[15]                   ; Merged with Timer:timer_d|old_cnt[15]               ;
+; Timer:timer_d|old_cntr[16]                   ; Merged with Timer:timer_d|old_cnt[16]               ;
+; Timer:timer_d|old_cntr[17]                   ; Merged with Timer:timer_d|old_cnt[17]               ;
+; Timer:timer_d|old_cntr[18]                   ; Merged with Timer:timer_d|old_cnt[18]               ;
+; Timer:timer_d|old_cntr[19]                   ; Merged with Timer:timer_d|old_cnt[19]               ;
+; Timer:timer_d|old_cntr[20]                   ; Merged with Timer:timer_d|old_cnt[20]               ;
+; Timer:timer_d|old_cntr[21]                   ; Merged with Timer:timer_d|old_cnt[21]               ;
+; Timer:timer_d|old_cntr[22]                   ; Merged with Timer:timer_d|old_cnt[22]               ;
+; Timer:timer_d|old_cntr[23]                   ; Merged with Timer:timer_d|old_cnt[23]               ;
+; Timer:timer_d|old_cntr[24]                   ; Merged with Timer:timer_d|old_cnt[24]               ;
+; Timer:timer_d|old_cntr[25]                   ; Merged with Timer:timer_d|old_cnt[25]               ;
+; Timer:timer_d|old_cntr[26]                   ; Merged with Timer:timer_d|old_cnt[26]               ;
+; Timer:timer_d|old_cntr[27]                   ; Merged with Timer:timer_d|old_cnt[27]               ;
+; Timer:timer_d|old_cntr[28]                   ; Merged with Timer:timer_d|old_cnt[28]               ;
+; Timer:timer_d|old_cntr[29]                   ; Merged with Timer:timer_d|old_cnt[29]               ;
+; Timer:timer_d|old_cntr[30]                   ; Merged with Timer:timer_d|old_cnt[30]               ;
+; Timer:timer_d|old_cntr[31]                   ; Merged with Timer:timer_d|old_cnt[31]               ;
+; Timer:timer_d|ClkDivider:divider|counter[0]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[0]  ;
+; Timer:timer_d|ClkDivider:divider|counter[1]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[1]  ;
+; Timer:timer_d|ClkDivider:divider|counter[2]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[2]  ;
+; Timer:timer_d|ClkDivider:divider|counter[3]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[3]  ;
+; Timer:timer_d|ClkDivider:divider|counter[4]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[4]  ;
+; Timer:timer_d|ClkDivider:divider|counter[5]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[5]  ;
+; Timer:timer_d|ClkDivider:divider|counter[6]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[6]  ;
+; Timer:timer_d|ClkDivider:divider|counter[7]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[7]  ;
+; Timer:timer_d|ClkDivider:divider|counter[8]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[8]  ;
+; Timer:timer_d|ClkDivider:divider|counter[9]  ; Merged with SWD:sw_d|ClkDivider:divider|counter[9]  ;
+; Timer:timer_d|ClkDivider:divider|counter[10] ; Merged with SWD:sw_d|ClkDivider:divider|counter[10] ;
+; Timer:timer_d|ClkDivider:divider|counter[11] ; Merged with SWD:sw_d|ClkDivider:divider|counter[11] ;
+; Timer:timer_d|ClkDivider:divider|counter[12] ; Merged with SWD:sw_d|ClkDivider:divider|counter[12] ;
+; Timer:timer_d|ClkDivider:divider|counter[13] ; Merged with SWD:sw_d|ClkDivider:divider|counter[13] ;
+; Timer:timer_d|ClkDivider:divider|counter[14] ; Merged with SWD:sw_d|ClkDivider:divider|counter[14] ;
+; Timer:timer_d|ClkDivider:divider|counter[15] ; Merged with SWD:sw_d|ClkDivider:divider|counter[15] ;
+; Timer:timer_d|ClkDivider:divider|counter[16] ; Merged with SWD:sw_d|ClkDivider:divider|counter[16] ;
+; Timer:timer_d|ClkDivider:divider|counter[17] ; Merged with SWD:sw_d|ClkDivider:divider|counter[17] ;
+; Timer:timer_d|ClkDivider:divider|counter[18] ; Merged with SWD:sw_d|ClkDivider:divider|counter[18] ;
+; Timer:timer_d|ClkDivider:divider|counter[19] ; Merged with SWD:sw_d|ClkDivider:divider|counter[19] ;
+; Timer:timer_d|ClkDivider:divider|counter[20] ; Merged with SWD:sw_d|ClkDivider:divider|counter[20] ;
+; Timer:timer_d|ClkDivider:divider|counter[21] ; Merged with SWD:sw_d|ClkDivider:divider|counter[21] ;
+; Timer:timer_d|ClkDivider:divider|counter[22] ; Merged with SWD:sw_d|ClkDivider:divider|counter[22] ;
+; Timer:timer_d|ClkDivider:divider|counter[23] ; Merged with SWD:sw_d|ClkDivider:divider|counter[23] ;
+; Timer:timer_d|ClkDivider:divider|counter[24] ; Merged with SWD:sw_d|ClkDivider:divider|counter[24] ;
+; Timer:timer_d|ClkDivider:divider|counter[25] ; Merged with SWD:sw_d|ClkDivider:divider|counter[25] ;
+; Timer:timer_d|ClkDivider:divider|counter[26] ; Merged with SWD:sw_d|ClkDivider:divider|counter[26] ;
+; Timer:timer_d|ClkDivider:divider|counter[27] ; Merged with SWD:sw_d|ClkDivider:divider|counter[27] ;
+; Timer:timer_d|ClkDivider:divider|counter[28] ; Merged with SWD:sw_d|ClkDivider:divider|counter[28] ;
+; Timer:timer_d|ClkDivider:divider|counter[29] ; Merged with SWD:sw_d|ClkDivider:divider|counter[29] ;
+; Timer:timer_d|ClkDivider:divider|counter[30] ; Merged with SWD:sw_d|ClkDivider:divider|counter[30] ;
+; Timer:timer_d|ClkDivider:divider|counter[31] ; Merged with SWD:sw_d|ClkDivider:divider|counter[31] ;
+; RegisterFile:regFile|data~512                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~513                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~514                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~515                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~516                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~517                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~518                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~519                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~520                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~521                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~522                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~523                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~524                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~525                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~526                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~527                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~528                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~529                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~530                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~531                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~532                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~533                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~534                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~535                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~536                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~537                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~538                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~539                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~540                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~541                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~542                ; Lost fanout                                         ;
+; RegisterFile:regFile|data~543                ; Lost fanout                                         ;
+; Total Number of Removed Registers = 96       ;                                                     ;
++----------------------------------------------+-----------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 894   ;
+; Number of registers using Synchronous Clear  ; 31    ;
+; Number of registers using Synchronous Load   ; 29    ;
+; Number of registers using Asynchronous Clear ; 32    ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 613   ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; Register:pc|dataOut[6]                 ; 96      ;
+; Total number of inverted registers = 1 ;         ;
++----------------------------------------+---------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
+; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Project2|SWD:sw_d|counter[4]                                        ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Project2|pipeline_reg:pipe_reg|bufRegister:regWrAddrBuff|dataOut[0] ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; Yes        ; |Project2|Register:pc|dataOut[0]                                     ;
+; 5:1                ; 29 bits   ; 87 LEs        ; 58 LEs               ; 29 LEs                 ; Yes        ; |Project2|Register:pc|dataOut[10]                                    ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; Yes        ; |Project2|ledrD:ledr_d|ledrData[0]                                   ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Project2|ledgD:ledg_d|ledgData[7]                                   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |Project2|HEXD:hex_d|hdata[9]                                        ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |Project2|Mux4to1:muxMemOut|Mux30                                    ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; No         ; |Project2|Timer:timer_d|DBUS[31]                                     ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |Project2|Timer:timer_d|DBUS[0]                                      ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector12                                 ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector4                                  ;
+; 32:1               ; 15 bits   ; 315 LEs       ; 75 LEs               ; 240 LEs                ; No         ; |Project2|Alu:alu1|Mux20                                             ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; No         ; |Project2|Controller:cont|Selector17                                 ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector4                                  ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; No         ; |Project2|Controller:cont|Selector2                                  ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |Project2|Controller:cont|Selector5                                  ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |Project2|Controller:cont|Selector20                                 ;
+; 20:1               ; 16 bits   ; 208 LEs       ; 112 LEs              ; 96 LEs                 ; No         ; |Project2|Alu:alu1|Mux8                                              ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------+
+; Source assignments for DataMemory:dataMem|altsyncram:data_rtl_0|altsyncram_ghc1:auto_generated ;
++---------------------------------+--------------------+------+----------------------------------+
+; Assignment                      ; Value              ; From ; To                               ;
++---------------------------------+--------------------+------+----------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                ;
++---------------------------------+--------------------+------+----------------------------------+
+
+
++--------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |Project2 ;
++---------------------+----------------------------------+-----------------+
+; Parameter Name      ; Value                            ; Type            ;
++---------------------+----------------------------------+-----------------+
+; DBITS               ; 32                               ; Signed Integer  ;
+; INST_SIZE           ; 00000000000000000000000000000100 ; Unsigned Binary ;
+; INST_BIT_WIDTH      ; 32                               ; Signed Integer  ;
+; START_PC            ; 00000000000000000000000001000000 ; Unsigned Binary ;
+; REG_INDEX_BIT_WIDTH ; 4                                ; Signed Integer  ;
+; ADDR_KEY            ; 11110000000000000000000000010000 ; Unsigned Binary ;
+; ADDR_SW             ; 11110000000000000000000000010100 ; Unsigned Binary ;
+; ADDR_HEX            ; 11110000000000000000000000000000 ; Unsigned Binary ;
+; ADDR_LEDR           ; 11110000000000000000000000000100 ; Unsigned Binary ;
+; ADDR_LEDG           ; 11110000000000000000000000001000 ; Unsigned Binary ;
+; IMEM_INIT_FILE      ; Sort2_counter.mif                ; String          ;
+; IMEM_ADDR_BIT_WIDTH ; 11                               ; Signed Integer  ;
+; IMEM_DATA_BIT_WIDTH ; 32                               ; Signed Integer  ;
+; IMEM_PC_BITS_HI     ; 13                               ; Signed Integer  ;
+; IMEM_PC_BITS_LO     ; 2                                ; Signed Integer  ;
+; DMEM_ADDR_BIT_WIDTH ; 11                               ; Signed Integer  ;
+; DMEM_DATA_BIT_WIDTH ; 32                               ; Signed Integer  ;
+; DMEM_ADDR_BITS_HI   ; 13                               ; Signed Integer  ;
+; DMEM_ADDR_BITS_LO   ; 2                                ; Signed Integer  ;
+; OP1_ALUR            ; 0000                             ; Unsigned Binary ;
+; OP1_ALUI            ; 1000                             ; Unsigned Binary ;
+; OP1_CMPR            ; 0010                             ; Unsigned Binary ;
+; OP1_CMPI            ; 1010                             ; Unsigned Binary ;
+; OP1_BCOND           ; 0110                             ; Unsigned Binary ;
+; OP1_SW              ; 0101                             ; Unsigned Binary ;
+; OP1_LW              ; 1001                             ; Unsigned Binary ;
+; OP1_JAL             ; 1011                             ; Unsigned Binary ;
++---------------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ClkDivider:clkdi ;
++----------------+---------+------------------------------------+
+; Parameter Name ; Value   ; Type                               ;
++----------------+---------+------------------------------------+
+; divider        ; 2500000 ; Signed Integer                     ;
+; len            ; 31      ; Signed Integer                     ;
++----------------+---------+------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Register:pc            ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; BIT_WIDTH      ; 32                               ; Signed Integer  ;
+; RESET_VALUE    ; 00000000000000000000000001000000 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: PcLogic:pcLogic ;
++----------------+-------+-------------------------------------+
+; Parameter Name ; Value ; Type                                ;
++----------------+-------+-------------------------------------+
+; PC_BIT_WIDTH   ; 32    ; Signed Integer                      ;
++----------------+-------+-------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Mux4to1:muxPcOut ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; DATA_BIT_WIDTH ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: InstMemory:instMem ;
++----------------+-------------------+----------------------------+
+; Parameter Name ; Value             ; Type                       ;
++----------------+-------------------+----------------------------+
+; MEM_INIT_FILE  ; Sort2_counter.mif ; String                     ;
+; ADDR_BIT_WIDTH ; 11                ; Signed Integer             ;
+; DATA_BIT_WIDTH ; 32                ; Signed Integer             ;
+; N_WORDS        ; 2048              ; Signed Integer             ;
++----------------+-------------------+----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Controller:cont ;
++----------------+-------+-------------------------------------+
+; Parameter Name ; Value ; Type                                ;
++----------------+-------+-------------------------------------+
+; INST_BIT_WIDTH ; 32    ; Signed Integer                      ;
++----------------+-------+-------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: RegisterFile:regFile ;
++-----------------+-------+-----------------------------------------+
+; Parameter Name  ; Value ; Type                                    ;
++-----------------+-------+-----------------------------------------+
+; INDEX_BIT_WIDTH ; 4     ; Signed Integer                          ;
+; DATA_BIT_WIDTH  ; 32    ; Signed Integer                          ;
+; N_REGS          ; 16    ; Signed Integer                          ;
++-----------------+-------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Alu:alu1 ;
++------------------+-------+----------------------------+
+; Parameter Name   ; Value ; Type                       ;
++------------------+-------+----------------------------+
+; DATA_BIT_WIDTH   ; 32    ; Signed Integer             ;
+; CTRL_BIT_WIDTH   ; 5     ; Signed Integer             ;
+; CMPOUT_BIT_WIDTH ; 3     ; Signed Integer             ;
++------------------+-------+----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: SignExtension:se ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; IN_BIT_WIDTH   ; 16    ; Signed Integer                       ;
+; OUT_BIT_WIDTH  ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Mux2to1:muxAluIn ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; DATA_BIT_WIDTH ; 32    ; Signed Integer                       ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg ;
++----------------+-------+-------------------------------------------+
+; Parameter Name ; Value ; Type                                      ;
++----------------+-------+-------------------------------------------+
+; BIT_WIDTH      ; 32    ; Signed Integer                            ;
++----------------+-------+-------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:regWrEnBuff ;
++----------------+-------+-------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                              ;
++----------------+-------+-------------------------------------------------------------------+
+; BIT_WIDTH      ; 1     ; Signed Integer                                                    ;
+; RESET_VALUE    ; 0     ; Signed Integer                                                    ;
++----------------+-------+-------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:memWrEnBuff ;
++----------------+-------+-------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                              ;
++----------------+-------+-------------------------------------------------------------------+
+; BIT_WIDTH      ; 1     ; Signed Integer                                                    ;
+; RESET_VALUE    ; 0     ; Signed Integer                                                    ;
++----------------+-------+-------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:mulSelBuff ;
++----------------+-------+------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                             ;
++----------------+-------+------------------------------------------------------------------+
+; BIT_WIDTH      ; 2     ; Signed Integer                                                   ;
+; RESET_VALUE    ; 0     ; Signed Integer                                                   ;
++----------------+-------+------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:regWrAddrBuff ;
++----------------+-------+---------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                ;
++----------------+-------+---------------------------------------------------------------------+
+; BIT_WIDTH      ; 4     ; Signed Integer                                                      ;
+; RESET_VALUE    ; 0     ; Signed Integer                                                      ;
++----------------+-------+---------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:aluOutBuff ;
++----------------+-------+------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                             ;
++----------------+-------+------------------------------------------------------------------+
+; BIT_WIDTH      ; 32    ; Signed Integer                                                   ;
+; RESET_VALUE    ; 0     ; Signed Integer                                                   ;
++----------------+-------+------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:PCBuff ;
++----------------+-------+--------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                         ;
++----------------+-------+--------------------------------------------------------------+
+; BIT_WIDTH      ; 32    ; Signed Integer                                               ;
+; RESET_VALUE    ; 0     ; Signed Integer                                               ;
++----------------+-------+--------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pipeline_reg:pipe_reg|bufRegister:dataInBuff ;
++----------------+-------+------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                             ;
++----------------+-------+------------------------------------------------------------------+
+; BIT_WIDTH      ; 32    ; Signed Integer                                                   ;
+; RESET_VALUE    ; 0     ; Signed Integer                                                   ;
++----------------+-------+------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: DataMemory:dataMem ;
++----------------+-------+----------------------------------------+
+; Parameter Name ; Value ; Type                                   ;
++----------------+-------+----------------------------------------+
+; ADDR_BIT_WIDTH ; 11    ; Signed Integer                         ;
+; DATA_BIT_WIDTH ; 32    ; Signed Integer                         ;
+; N_WORDS        ; 2048  ; Signed Integer                         ;
++----------------+-------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Mux4to1:muxMemOut ;
++----------------+-------+---------------------------------------+
+; Parameter Name ; Value ; Type                                  ;
++----------------+-------+---------------------------------------+
+; DATA_BIT_WIDTH ; 32    ; Signed Integer                        ;
++----------------+-------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: BranchAddrCalculator:bac ;
++----------------+-------+----------------------------------------------+
+; Parameter Name ; Value ; Type                                         ;
++----------------+-------+----------------------------------------------+
+; PC_BIT_WIDTH   ; 32    ; Signed Integer                               ;
++----------------+-------+----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: KeyD:key_d             ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; BITS           ; 32                               ; Signed Integer  ;
+; BASE           ; 11110000000000000000000000010000 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: SWD:sw_d               ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; BITS           ; 32                               ; Signed Integer  ;
+; BASE           ; 11110000000000000000000000010100 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: SWD:sw_d|ClkDivider:divider ;
++----------------+-------+-------------------------------------------------+
+; Parameter Name ; Value ; Type                                            ;
++----------------+-------+-------------------------------------------------+
+; divider        ; 5000  ; Signed Integer                                  ;
+; len            ; 31    ; Signed Integer                                  ;
++----------------+-------+-------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HEXD:hex_d             ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; BITS           ; 32                               ; Signed Integer  ;
+; BASE           ; 11110000000000000000000000000000 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ledrD:ledr_d           ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; BITS           ; 32                               ; Signed Integer  ;
+; BASE           ; 11110000000000000000000000000100 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ledgD:ledg_d           ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; BITS           ; 32                               ; Signed Integer  ;
+; BASE           ; 11110000000000000000000000001000 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Timer:timer_d          ;
++----------------+----------------------------------+-----------------+
+; Parameter Name ; Value                            ; Type            ;
++----------------+----------------------------------+-----------------+
+; BITS           ; 32                               ; Signed Integer  ;
+; BASE           ; 11110000000000000000000000100000 ; Unsigned Binary ;
++----------------+----------------------------------+-----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Timer:timer_d|ClkDivider:divider ;
++----------------+-------+------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                 ;
++----------------+-------+------------------------------------------------------+
+; divider        ; 5000  ; Signed Integer                                       ;
+; len            ; 31    ; Signed Integer                                       ;
++----------------+-------+------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: DataMemory:dataMem|altsyncram:data_rtl_0 ;
++------------------------------------+----------------------+-------------------------------+
+; Parameter Name                     ; Value                ; Type                          ;
++------------------------------------+----------------------+-------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                       ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                    ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                  ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                  ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                       ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                       ;
+; WIDTH_A                            ; 32                   ; Untyped                       ;
+; WIDTHAD_A                          ; 11                   ; Untyped                       ;
+; NUMWORDS_A                         ; 2048                 ; Untyped                       ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                       ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                       ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                       ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                       ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                       ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                       ;
+; WIDTH_B                            ; 32                   ; Untyped                       ;
+; WIDTHAD_B                          ; 11                   ; Untyped                       ;
+; NUMWORDS_B                         ; 2048                 ; Untyped                       ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                       ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                       ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                       ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                       ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                       ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                       ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                       ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                       ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                       ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                       ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                       ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                       ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                       ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                       ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                       ;
+; BYTE_SIZE                          ; 8                    ; Untyped                       ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                       ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                       ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                       ;
+; INIT_FILE                          ; UNUSED               ; Untyped                       ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                       ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                       ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                       ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                       ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                       ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                       ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                       ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                       ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                       ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                       ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                       ;
+; DEVICE_FAMILY                      ; Cyclone II           ; Untyped                       ;
+; CBXI_PARAMETER                     ; altsyncram_ghc1      ; Untyped                       ;
++------------------------------------+----------------------+-------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                     ;
++-------------------------------------------+------------------------------------------+
+; Name                                      ; Value                                    ;
++-------------------------------------------+------------------------------------------+
+; Number of entity instances                ; 1                                        ;
+; Entity Instance                           ; DataMemory:dataMem|altsyncram:data_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                ;
+;     -- WIDTH_A                            ; 32                                       ;
+;     -- NUMWORDS_A                         ; 2048                                     ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                             ;
+;     -- WIDTH_B                            ; 32                                       ;
+;     -- NUMWORDS_B                         ; 2048                                     ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                   ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                             ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                     ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                ;
++-------------------------------------------+------------------------------------------+
+
+
++-----------------------------------------------+
+; Port Connectivity Checks: "Mux4to1:muxMemOut" ;
++------+-------+----------+---------------------+
+; Port ; Type  ; Severity ; Details             ;
++------+-------+----------+---------------------+
+; dIn3 ; Input ; Info     ; Stuck at GND        ;
++------+-------+----------+---------------------+
+
+
++---------------------------------------------------+
+; Port Connectivity Checks: "pipeline_reg:pipe_reg" ;
++----------+-------+----------+---------------------+
+; Port     ; Type  ; Severity ; Details             ;
++----------+-------+----------+---------------------+
+; buffWrEn ; Input ; Info     ; Stuck at VCC        ;
++----------+-------+----------+---------------------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Controller:cont"                                                                      ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                             ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; isLoad ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------+
+; Port Connectivity Checks: "Mux4to1:muxPcOut" ;
++------+-------+----------+--------------------+
+; Port ; Type  ; Severity ; Details            ;
++------+-------+----------+--------------------+
+; dIn3 ; Input ; Info     ; Stuck at GND       ;
++------+-------+----------+--------------------+
+
+
++-----------------------------------------+
+; Port Connectivity Checks: "Register:pc" ;
++-------+-------+----------+--------------+
+; Port  ; Type  ; Severity ; Details      ;
++-------+-------+----------+--------------+
+; wrtEn ; Input ; Info     ; Stuck at VCC ;
++-------+-------+----------+--------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:43     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+    Info: Processing started: Tue Nov 18 05:05:45 2014
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Project2 -c Debug
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 1 design units, including 1 entities, in source file negregister.v
+    Info (12023): Found entity 1: negRegister
+Info (12021): Found 1 design units, including 1 entities, in source file pclogic.v
+    Info (12023): Found entity 1: PcLogic
+Info (12021): Found 1 design units, including 1 entities, in source file alu.v
+    Info (12023): Found entity 1: Alu
+Info (12021): Found 1 design units, including 1 entities, in source file instmemory.v
+    Info (12023): Found entity 1: InstMemory
+Info (12021): Found 1 design units, including 1 entities, in source file register.v
+    Info (12023): Found entity 1: Register
+Warning (10275): Verilog HDL Module Instantiation warning at Project2.v(136): ignored dangling comma in List of Port Connections
+Info (12021): Found 4 design units, including 4 entities, in source file project2.v
+    Info (12023): Found entity 1: ClkDivider
+    Info (12023): Found entity 2: Project2
+    Info (12023): Found entity 3: IO_controller
+    Info (12023): Found entity 4: dec2_7seg
+Info (12021): Found 1 design units, including 1 entities, in source file sevenseg.v
+    Info (12023): Found entity 1: SevenSeg
+Info (12021): Found 1 design units, including 1 entities, in source file signextension.v
+    Info (12023): Found entity 1: SignExtension
+Info (12021): Found 1 design units, including 1 entities, in source file pll.v
+    Info (12023): Found entity 1: PLL
+Info (12021): Found 1 design units, including 1 entities, in source file controller.v
+    Info (12023): Found entity 1: Controller
+Info (12021): Found 1 design units, including 1 entities, in source file mux2to1.v
+    Info (12023): Found entity 1: Mux2to1
+Info (12021): Found 1 design units, including 1 entities, in source file registerfile.v
+    Info (12023): Found entity 1: RegisterFile
+Info (12021): Found 1 design units, including 1 entities, in source file datamemory.v
+    Info (12023): Found entity 1: DataMemory
+Info (12021): Found 1 design units, including 1 entities, in source file branchaddrcalculator.v
+    Info (12023): Found entity 1: BranchAddrCalculator
+Info (12021): Found 1 design units, including 1 entities, in source file comparator.v
+    Info (12023): Found entity 1: comparator
+Info (12021): Found 1 design units, including 1 entities, in source file mux4to1.v
+    Info (12023): Found entity 1: Mux4to1
+Info (12021): Found 1 design units, including 1 entities, in source file pipeline_reg.v
+    Info (12023): Found entity 1: pipeline_reg
+Info (12021): Found 1 design units, including 1 entities, in source file bufregister.v
+    Info (12023): Found entity 1: bufRegister
+Info (12021): Found 1 design units, including 1 entities, in source file keyd.v
+    Info (12023): Found entity 1: KeyD
+Info (12021): Found 1 design units, including 1 entities, in source file timer.v
+    Info (12023): Found entity 1: Timer
+Info (12021): Found 1 design units, including 1 entities, in source file swd.v
+    Info (12023): Found entity 1: SWD
+Info (12021): Found 1 design units, including 1 entities, in source file ledrd.v
+    Info (12023): Found entity 1: ledrD
+Info (12021): Found 1 design units, including 1 entities, in source file hexd.v
+    Info (12023): Found entity 1: HEXD
+Info (12021): Found 1 design units, including 1 entities, in source file ledgd.v
+    Info (12023): Found entity 1: ledgD
+Info (12127): Elaborating entity "Project2" for the top level hierarchy
+Warning (10230): Verilog HDL assignment warning at Project2.v(156): truncated value with size 32 to match size of target (1)
+Info (12128): Elaborating entity "ClkDivider" for hierarchy "ClkDivider:clkdi"
+Info (12128): Elaborating entity "Register" for hierarchy "Register:pc"
+Info (12128): Elaborating entity "PcLogic" for hierarchy "PcLogic:pcLogic"
+Info (12128): Elaborating entity "Mux4to1" for hierarchy "Mux4to1:muxPcOut"
+Info (12128): Elaborating entity "InstMemory" for hierarchy "InstMemory:instMem"
+Warning (10858): Verilog HDL warning at InstMemory.v(11): object data used but never assigned
+Info (12128): Elaborating entity "Controller" for hierarchy "Controller:cont"
+Info (12128): Elaborating entity "RegisterFile" for hierarchy "RegisterFile:regFile"
+Info (12128): Elaborating entity "Alu" for hierarchy "Alu:alu1"
+Info (12128): Elaborating entity "SignExtension" for hierarchy "SignExtension:se"
+Info (12128): Elaborating entity "Mux2to1" for hierarchy "Mux2to1:muxAluIn"
+Info (12128): Elaborating entity "pipeline_reg" for hierarchy "pipeline_reg:pipe_reg"
+Info (12128): Elaborating entity "bufRegister" for hierarchy "pipeline_reg:pipe_reg|bufRegister:regWrEnBuff"
+Warning (10230): Verilog HDL assignment warning at bufRegister.v(12): truncated value with size 32 to match size of target (1)
+Info (12128): Elaborating entity "bufRegister" for hierarchy "pipeline_reg:pipe_reg|bufRegister:mulSelBuff"
+Warning (10230): Verilog HDL assignment warning at bufRegister.v(12): truncated value with size 32 to match size of target (2)
+Info (12128): Elaborating entity "bufRegister" for hierarchy "pipeline_reg:pipe_reg|bufRegister:regWrAddrBuff"
+Warning (10230): Verilog HDL assignment warning at bufRegister.v(12): truncated value with size 32 to match size of target (4)
+Info (12128): Elaborating entity "bufRegister" for hierarchy "pipeline_reg:pipe_reg|bufRegister:aluOutBuff"
+Info (12128): Elaborating entity "DataMemory" for hierarchy "DataMemory:dataMem"
+Info (12128): Elaborating entity "BranchAddrCalculator" for hierarchy "BranchAddrCalculator:bac"
+Info (12128): Elaborating entity "KeyD" for hierarchy "KeyD:key_d"
+Warning (10230): Verilog HDL assignment warning at KeyD.v(34): truncated value with size 32 to match size of target (1)
+Info (12128): Elaborating entity "SWD" for hierarchy "SWD:sw_d"
+Warning (10230): Verilog HDL assignment warning at SWD.v(37): truncated value with size 32 to match size of target (11)
+Warning (10230): Verilog HDL assignment warning at SWD.v(41): truncated value with size 32 to match size of target (11)
+Warning (10230): Verilog HDL assignment warning at SWD.v(62): truncated value with size 32 to match size of target (1)
+Warning (10855): Verilog HDL warning at SWD.v(66): initial value for variable sdata should be constant
+Info (12128): Elaborating entity "ClkDivider" for hierarchy "SWD:sw_d|ClkDivider:divider"
+Info (12128): Elaborating entity "HEXD" for hierarchy "HEXD:hex_d"
+Info (12128): Elaborating entity "ledrD" for hierarchy "ledrD:ledr_d"
+Info (12128): Elaborating entity "ledgD" for hierarchy "ledgD:ledg_d"
+Info (12128): Elaborating entity "Timer" for hierarchy "Timer:timer_d"
+Critical Warning (10237): Verilog HDL warning at Timer.v(42): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead
+Info (12128): Elaborating entity "dec2_7seg" for hierarchy "dec2_7seg:hex0Converter"
+Info (276024): Pass-through logic not created for RAM node "DataMemory:dataMem|data_rtl_0"
+Info (276014): Found 2 instances of uninferred RAM logic
+    Info (276007): RAM logic "InstMemory:instMem|data" is uninferred due to asynchronous read logic
+    Info (276007): RAM logic "RegisterFile:regFile|data" is uninferred due to asynchronous read logic
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "DataMemory:dataMem|data_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 32
+        Info (286033): Parameter WIDTHAD_A set to 11
+        Info (286033): Parameter NUMWORDS_A set to 2048
+        Info (286033): Parameter WIDTH_B set to 32
+        Info (286033): Parameter WIDTHAD_B set to 11
+        Info (286033): Parameter NUMWORDS_B set to 2048
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+Info (12130): Elaborated megafunction instantiation "DataMemory:dataMem|altsyncram:data_rtl_0"
+Info (12133): Instantiated megafunction "DataMemory:dataMem|altsyncram:data_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "32"
+    Info (12134): Parameter "WIDTHAD_A" = "11"
+    Info (12134): Parameter "NUMWORDS_A" = "2048"
+    Info (12134): Parameter "WIDTH_B" = "32"
+    Info (12134): Parameter "WIDTHAD_B" = "11"
+    Info (12134): Parameter "NUMWORDS_B" = "2048"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ghc1.tdf
+    Info (12023): Found entity 1: altsyncram_ghc1
+Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
+    Warning (13047): Converted the fan-out from the tri-state buffer "DBUS[0]" to the node "Mux4to1:muxMemOut|Mux31" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "DBUS[2]" to the node "Mux4to1:muxMemOut|Mux29" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "DBUS[3]" to the node "Mux4to1:muxMemOut|Mux28" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[4]" to the node "Mux4to1:muxMemOut|Mux27" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[5]" to the node "Mux4to1:muxMemOut|Mux26" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[6]" to the node "Mux4to1:muxMemOut|Mux25" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[7]" to the node "Mux4to1:muxMemOut|Mux24" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[8]" to the node "Mux4to1:muxMemOut|Mux23" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[9]" to the node "Mux4to1:muxMemOut|Mux22" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[10]" to the node "Mux4to1:muxMemOut|Mux21" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[11]" to the node "Mux4to1:muxMemOut|Mux20" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[12]" to the node "Mux4to1:muxMemOut|Mux19" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[28]" to the node "Mux4to1:muxMemOut|Mux3" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[29]" to the node "Mux4to1:muxMemOut|Mux2" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[30]" to the node "Mux4to1:muxMemOut|Mux1" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[31]" to the node "Mux4to1:muxMemOut|Mux0" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "DBUS[1]" to the node "Mux4to1:muxMemOut|Mux30" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[13]" to the node "Mux4to1:muxMemOut|Mux18" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[14]" to the node "Mux4to1:muxMemOut|Mux17" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[15]" to the node "Mux4to1:muxMemOut|Mux16" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[16]" to the node "Mux4to1:muxMemOut|Mux15" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[17]" to the node "Mux4to1:muxMemOut|Mux14" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[18]" to the node "Mux4to1:muxMemOut|Mux13" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[19]" to the node "Mux4to1:muxMemOut|Mux12" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[20]" to the node "Mux4to1:muxMemOut|Mux11" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[21]" to the node "Mux4to1:muxMemOut|Mux10" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[22]" to the node "Mux4to1:muxMemOut|Mux9" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[23]" to the node "Mux4to1:muxMemOut|Mux8" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[24]" to the node "Mux4to1:muxMemOut|Mux7" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[25]" to the node "Mux4to1:muxMemOut|Mux6" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[26]" to the node "Mux4to1:muxMemOut|Mux5" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "KeyD:key_d|DBUS[27]" to the node "Mux4to1:muxMemOut|Mux4" into an OR gate
+Warning (13004): Presettable and clearable registers converted to equivalent circuits with latches. Registers power-up to an undefined state, and DEVCLRn places the registers in an undefined state.
+    Warning (13310): Register "Timer:timer_d|cnt[0]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[0]~_emulated" and latch "Timer:timer_d|cnt[0]~1"
+    Warning (13310): Register "Timer:timer_d|cnt[2]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[2]~_emulated" and latch "Timer:timer_d|cnt[2]~5"
+    Warning (13310): Register "Timer:timer_d|cnt[3]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[3]~_emulated" and latch "Timer:timer_d|cnt[3]~9"
+    Warning (13310): Register "Timer:timer_d|cnt[4]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[4]~_emulated" and latch "Timer:timer_d|cnt[4]~13"
+    Warning (13310): Register "Timer:timer_d|cnt[5]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[5]~_emulated" and latch "Timer:timer_d|cnt[5]~17"
+    Warning (13310): Register "Timer:timer_d|cnt[6]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[6]~_emulated" and latch "Timer:timer_d|cnt[6]~21"
+    Warning (13310): Register "Timer:timer_d|cnt[7]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[7]~_emulated" and latch "Timer:timer_d|cnt[7]~25"
+    Warning (13310): Register "Timer:timer_d|cnt[8]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[8]~_emulated" and latch "Timer:timer_d|cnt[8]~29"
+    Warning (13310): Register "Timer:timer_d|cnt[9]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[9]~_emulated" and latch "Timer:timer_d|cnt[9]~33"
+    Warning (13310): Register "Timer:timer_d|cnt[10]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[10]~_emulated" and latch "Timer:timer_d|cnt[10]~37"
+    Warning (13310): Register "Timer:timer_d|cnt[11]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[11]~_emulated" and latch "Timer:timer_d|cnt[11]~41"
+    Warning (13310): Register "Timer:timer_d|cnt[12]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[12]~_emulated" and latch "Timer:timer_d|cnt[12]~45"
+    Warning (13310): Register "Timer:timer_d|cnt[28]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[28]~_emulated" and latch "Timer:timer_d|cnt[28]~49"
+    Warning (13310): Register "Timer:timer_d|cnt[29]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[29]~_emulated" and latch "Timer:timer_d|cnt[29]~53"
+    Warning (13310): Register "Timer:timer_d|cnt[30]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[30]~_emulated" and latch "Timer:timer_d|cnt[30]~57"
+    Warning (13310): Register "Timer:timer_d|cnt[31]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[31]~_emulated" and latch "Timer:timer_d|cnt[31]~61"
+    Warning (13310): Register "Timer:timer_d|cnt[1]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[1]~_emulated" and latch "Timer:timer_d|cnt[1]~65"
+    Warning (13310): Register "Timer:timer_d|cnt[13]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[13]~_emulated" and latch "Timer:timer_d|cnt[13]~69"
+    Warning (13310): Register "Timer:timer_d|cnt[14]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[14]~_emulated" and latch "Timer:timer_d|cnt[14]~73"
+    Warning (13310): Register "Timer:timer_d|cnt[15]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[15]~_emulated" and latch "Timer:timer_d|cnt[15]~77"
+    Warning (13310): Register "Timer:timer_d|cnt[16]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[16]~_emulated" and latch "Timer:timer_d|cnt[16]~81"
+    Warning (13310): Register "Timer:timer_d|cnt[17]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[17]~_emulated" and latch "Timer:timer_d|cnt[17]~85"
+    Warning (13310): Register "Timer:timer_d|cnt[18]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[18]~_emulated" and latch "Timer:timer_d|cnt[18]~89"
+    Warning (13310): Register "Timer:timer_d|cnt[19]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[19]~_emulated" and latch "Timer:timer_d|cnt[19]~93"
+    Warning (13310): Register "Timer:timer_d|cnt[20]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[20]~_emulated" and latch "Timer:timer_d|cnt[20]~97"
+    Warning (13310): Register "Timer:timer_d|cnt[21]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[21]~_emulated" and latch "Timer:timer_d|cnt[21]~101"
+    Warning (13310): Register "Timer:timer_d|cnt[22]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[22]~_emulated" and latch "Timer:timer_d|cnt[22]~105"
+    Warning (13310): Register "Timer:timer_d|cnt[23]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[23]~_emulated" and latch "Timer:timer_d|cnt[23]~109"
+    Warning (13310): Register "Timer:timer_d|cnt[24]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[24]~_emulated" and latch "Timer:timer_d|cnt[24]~113"
+    Warning (13310): Register "Timer:timer_d|cnt[25]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[25]~_emulated" and latch "Timer:timer_d|cnt[25]~117"
+    Warning (13310): Register "Timer:timer_d|cnt[26]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[26]~_emulated" and latch "Timer:timer_d|cnt[26]~121"
+    Warning (13310): Register "Timer:timer_d|cnt[27]" is converted into an equivalent circuit using register "Timer:timer_d|cnt[27]~_emulated" and latch "Timer:timer_d|cnt[27]~125"
+Info (17049): 32 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 3152 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 15 input pins
+    Info (21059): Implemented 46 output pins
+    Info (21061): Implemented 3059 logic cells
+    Info (21064): Implemented 32 RAM segments
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 79 warnings
+    Info: Peak virtual memory: 481 megabytes
+    Info: Processing ended: Tue Nov 18 05:06:39 2014
+    Info: Elapsed time: 00:00:54
+    Info: Total CPU time (on all processors): 00:00:51
+
+

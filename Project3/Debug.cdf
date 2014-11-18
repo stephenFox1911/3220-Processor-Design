@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP2C20F484) Path("C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/") File("Debug.sof") MfrSpec(OpMask(1));
+		Device PartName(EP2C20F484) Path("C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project3/") File("Debug.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

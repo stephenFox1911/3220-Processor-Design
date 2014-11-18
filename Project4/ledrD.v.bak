@@ -1,0 +1,12 @@
+module ledrD(ABUS,DBUS,WE,INTR,LEDR);
+
+parameter BITS;
+parameter BASE;
+
+input wire [(BITS-1:0)] ABUS;
+inout wire [(BITS-1:0)] DBUS;
+input wire WE;
+output wire INTR;
+
+wire selData = (ABUS == BASE);
+wire rdData = (!WE) && selData;

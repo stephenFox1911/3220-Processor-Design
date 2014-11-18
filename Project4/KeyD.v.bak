@@ -1,0 +1,44 @@
+module KeyD(ABUS,DBUS,WE,INTR,CLK,LOCK,INIT,DEBUG, KEY);
+
+parameter BITS;
+parameter BASE;
+
+input wire [(BITS-1:0)] ABUS;
+inout wire [(BITS-1:0)] DBUS;
+input wire WE,CLK,LOCK,INIT;
+output wire INTR;
+
+wire selData = (ABUS == BASE);
+wire rdData = (!WE) && selData;
+wire selCtrl = (ABUS == BASE + 'h100);
+wire rdCtrl = (!WE) && selCtrl;
+
+assign wire [3:0] kdata = KEY;
+reg [8:0] kctrl;
+
+//ctrl bit2
+always@(kdata or selCtrl) begin		//do @(posedge rdData or posedge clk)
+		if(kctrl[0] == 1 && !selCtrl)
+			kctrl[2] <= 1;
+		else if(selCtrl && WE && DBUS[2] == 0)
+			kctrl[2] <= 0;
+end
+
+//ctrl bit0
+always@(kdata or rdData) begin
+	kctrl[0] <= rdData?0:1;
+end	
+
+
+initial begin
+	kctrl = 9'b0;
+end
+
+
+assign DBUS = rdData?{28'd0,kdata}:	
+				  rdCtrl?{23'd0,kctrl}:
+				        {BITS{1'b0}};
+
+endmodule
+
+

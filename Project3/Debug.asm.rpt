@@ -1,5 +1,5 @@
 Assembler report for Debug
-Fri Nov 07 14:08:22 2014
+Tue Nov 18 00:17:47 2014
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -10,8 +10,8 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.sof
-  6. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.pof
+  5. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project3/Debug.sof
+  6. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project3/Debug.pof
   7. Assembler Messages
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Fri Nov 07 14:08:22 2014 ;
+; Assembler Status      ; Successful - Tue Nov 18 00:17:47 2014 ;
 ; Revision Name         ; Debug                                 ;
 ; Top-level Entity Name ; Project2                              ;
 ; Family                ; Cyclone II                            ;
@@ -83,30 +83,30 @@ applicable agreement for further details.
 +-------------------------------------------------------------------------+
 ; File Name                                                               ;
 +-------------------------------------------------------------------------+
-; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.sof ;
-; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.pof ;
+; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project3/Debug.sof ;
+; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project3/Debug.pof ;
 +-------------------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.sof ;
+; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project3/Debug.sof ;
 +----------------+----------------------------------------------------------------------------------+
 ; Option         ; Setting                                                                          ;
 +----------------+----------------------------------------------------------------------------------+
 ; Device         ; EP2C20F484C7                                                                     ;
 ; JTAG usercode  ; 0xFFFFFFFF                                                                       ;
-; Checksum       ; 0x0033B1A2                                                                       ;
+; Checksum       ; 0x003532AE                                                                       ;
 +----------------+----------------------------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project2/Debug.pof ;
+; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/Project3/Debug.pof ;
 +--------------------+------------------------------------------------------------------------------+
 ; Option             ; Setting                                                                      ;
 +--------------------+------------------------------------------------------------------------------+
 ; Device             ; EPCS16                                                                       ;
 ; JTAG usercode      ; 0x00000000                                                                   ;
-; Checksum           ; 0x1DB2A851                                                                   ;
+; Checksum           ; 0x1DB52A13                                                                   ;
 ; Compression Ratio  ; 2                                                                            ;
 +--------------------+------------------------------------------------------------------------------+
 
@@ -117,14 +117,14 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Assembler
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Fri Nov 07 14:08:19 2014
+    Info: Processing started: Tue Nov 18 00:17:41 2014
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off Project2 -c Debug
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 423 megabytes
-    Info: Processing ended: Fri Nov 07 14:08:22 2014
-    Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Peak virtual memory: 430 megabytes
+    Info: Processing ended: Tue Nov 18 00:17:48 2014
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:07
 
 

@@ -1,0 +1,50 @@
+module SWD(ABUS,DBUS,WE,INTR,CLK,LOCK,INIT,DEBUG, SW);
+
+parameter BITS;
+parameter BASE;
+
+input wire [(BITS-1:0)] ABUS;
+inout wire [(BITS-1:0)] DBUS;
+input wire WE,CLK,LOCK,INIT;
+output wire INTR;
+
+wire selData = (ABUS == BASE);
+wire rdData = (!WE) && selData;
+wire selCtrl = (ABUS == BASE + 'h100);
+wire rdCtrl = (!WE) && selCtrl;
+
+reg [9:0] sdata;
+reg [8:0] sctrl;
+
+//figure out how to get ms passed
+
+always@(SW) begin
+	
+end
+
+//ctrl bit2
+always@(sdata or selCtrl) begin
+		if(sctrl[0] == 1 && !selCtrl)
+			sctrl[2] <= 1;
+		else if(selCtrl && WE && DBUS[2] == 0)
+			sctrl[2] <= 0;
+end
+
+//ctrl bit0
+always@(sdata or rdData) begin
+	sctrl[0] <= rdData?0:1;
+end	
+
+
+initial begin
+	sctrl <= 9'b0;
+	sdata <= SW;
+end
+
+
+assign DBUS = rdData?{22'd0,sdata}:	
+				  rdCtrl?{23'd0,sctrl}:
+				        {BITS{1'b0}};
+
+endmodule
+

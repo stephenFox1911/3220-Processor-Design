@@ -1,0 +1,24 @@
+module ledgD(ABUS,DBUS,WE,INTR,LEDR);
+
+parameter BITS;
+parameter BASE;
+
+input wire [(BITS-1:0)] ABUS;
+inout wire [(BITS-1:0)] DBUS;
+input wire WE;
+output wire INTR;
+
+wire selData = (ABUS == BASE);
+wire rdData = (!WE) && selData;
+wire wrData = (WE) && selData;
+
+reg [7:0] ledgData;
+
+always@(posedge CLK) begin
+	if(wrData) begin
+		ledgData <= DBUS[7:0];
+	end
+end
+
+assign DBUS = rdData?{24'd0,ledrData}:	
+				        {BITS{1'b0}};
