@@ -101,7 +101,6 @@ RUN:
 	SUBI	R14,R14,1 ; decrement seconds
 	BEQ		R0,R0,RUN ; Jump to RUN, print new values
 
-	
 STOP:
 	SW		R0,TLIM(R1)	; set Timer Limit to 0 to halt countdown
 	SLOOP:
@@ -113,5 +112,23 @@ STOP:
 		BEQ		R0,R0,SLOOP ; loop waiting for K[2]
 		
 FINISH:
-
+	ADDI 	R2,R0,1 ; R2 is 1 to turn on LEDs
+	ADDI	R3,R0,500 ; 500 milliseconds for timer
 	
+	LIGHTLOOP:
+		SW		R2,OFSLEDR(R1) ; toggle LEDR
+		SW		R3,TLIM(R1)	; set Timer Limit 
+		SW		R0,TCNT(R1) ; set Timer Count to 0
+	
+		WAITING:
+			SW		R4,TCTL(R1) ; get Timer Control values
+			ANDI 	R4,R4,1 ; mask to get bit 0 (ready bit)
+			BEQ		R4,R0,WAITING ; if timer isn't done, keep looping
+		
+		BEQ		R2,R0,SETONE ; if LEDRvalue is 0, set to one
+		ADDI 	R2,R0,0 ; R2 is 1 to turn off LEDs
+		BEQ		R0,R0,LIGHTLOOP ; keep looping
+		
+		SETONE:
+			ADDI 	R2,R0,1 ; R2 is 1 to turn on LEDs
+		BEQ		R0,R0,LIGHTLOOP ; keep looping
