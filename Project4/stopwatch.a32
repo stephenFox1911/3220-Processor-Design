@@ -41,7 +41,7 @@ SSKIP9:
 MINUTES: 
 	LW		R2,SW(R1)	;Get value from switches
 	; Convert switches value to number of minutes
-	ANDI	 R5,R2,240 ; Mask: xxkkkkxxxx
+	ANDI	R5,R2,240 ; Mask: xxkkkkxxxx
 	ADDI 	R7,R0,96 ; load with 96 for compare
 	BLT 	R5,R7,MSKIP5 ; value less than 6 skip changing
 	ADDI 	R5,R0,80 ; R5 now holds 5
@@ -93,13 +93,38 @@ RUN:
 	BNE		R14,R0,DECSEC ; if seconds are not 0, decrement Seconds
 	BEQ		R13,R0,FINISH ; Mins and secs are 0, finish
 		; seconds are 0, mins > 0
-	SUBI	R13,R13,1 ; decrement mins *broke*
-	ADDI	R14,R0,59 ; seconds = 59 *broke*
+	
+	ANDI 	R4,R13,3840 ; Mask: xxxxkkkk
+	ADDI	R6,R0,30720
+	ADDI	R6,R6,30720 ; working around overflow
+	AND		R5,R13,R6 ; Mask: long
+	BNE		R4,R0,DECMINS ; one's place isn't zero, decrement
+		; Ones is zero, decrement 10's reset ones to 9
+		SUBI	R5,R5,4096 ; decrements 10's place by 1
+		ADDI	R4,R0,2304 ; Ones place is 9
+		ADD		R13,R4,R5 ; repack 10's and 1's into seconds
+		BEQ		R0,R0,MINHOP ; Jump to MINHOP, print new values
+	DECMINS:
+		SUBI	R4,R4,256 ; decrement 1's
+		ADD 	R13,R4,R5 ; repack 10's and 1's into seconds
+	
+	MINHOP:
+	ADDI	R14,R0,89 ; seconds = 59 *broke*
 	BEQ		R0,R0,RUN ; Jump to RUN, print new values
 	
 	DECSEC:
-	SUBI	R14,R14,1 ; decrement seconds
-	BEQ		R0,R0,RUN ; Jump to RUN, print new values
+		ANDI 	R4,R14,15 ; Mask: xxxxxxkkkk
+		ANDI	R5,R14,240 ; Mask: xxkkkkxxxx
+		BNE		R4,R0,DECONES ; one's place isn't zero, decrement
+			; Ones is zero, decrement 10's reset ones to 9
+			SUBI	R5,R5,16 ; decrements 10's place by 1
+			ADDI	R4,R0,9 ; Ones place is 9
+			ADD		R14,R4,R5 ; repack 10's and 1's into seconds
+			BEQ		R0,R0,RUN ; Jump to RUN, print new values
+		DECONES:
+			SUBI	R4,R4,1 ; decrement 1's
+			ADD 	R14,R4,R5 ; repack 10's and 1's into seconds
+			BEQ		R0,R0,RUN ; Jump to RUN, print new values
 
 STOP:
 	SW		R0,TLIM(R1)	; set Timer Limit to 0 to halt countdown
