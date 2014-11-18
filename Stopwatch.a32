@@ -1,0 +1,61 @@
+; Addresses for I/O
+.NAME IOBASE= 0xF0000000
+.NAME	OFSHEX= 0x00000000
+.NAME	OFSLEDR=0x00000004
+.NAME	OFSLEDG=0x00000008
+.NAME	OFSKEY =0x00000010
+.NAME	SW     =0x00000014
+.NAME	TIMER=0x00000020
+
+	.ORIG 0x40
+RESET:
+	MVHI	R1,IOBASE ; set R1 to beginning of I/O addresses
+	ANDI	R0,R0,0 ; R0 will be zero
+	SW		R0,OFSHEX(R1) ; Put zero on HEX
+SECONDS:
+	LW		R2,SW(R1)	;Get value from switches
+	; Convert switches value to number of seconds
+	;Check for press of K1
+	LW		R3,OFSKEY(R1) ; Get key value into R3
+	ANDI 	R3,R3,2 ; AND key[3:0] with 2
+	ADDI	R2,R0,2	; put 2 into R3
+	BNE 	R2,R3,SECONDS ; if K[1] isn't pressed, loop in SECONDS
+	SW		R2,OFSHEX(R1) ; Put seconds value on HEX  *DISPLAY*
+	; add seconds to total (R14)
+MINUTES: 
+	LW		R2,SW(R1)	;Get value from switches
+	; Convert switches value to number of minutes
+	;Check for press of K1
+	LW		R3,OFSKEY(R1) ; Get key value into R3
+	ANDI 	R3,R3,2 ; AND key[3:0] with 2
+	ADDI	R2,R0,2	; put 2 into R3
+	BNE 	R2,R3,MINUTES ; if K[1] isn't pressed, loop in MINUTES
+	SW		R2,OFSHEX(R1) ; Put minutes value on HEX  *DISPLAY*
+	; add minutes to total (R14)
+
+	SW 		R14,TIMER(R1) ; Write time to TIMER
+RUN:
+	LW 		R2,TIMER(R1) ; Read time from TIMER
+	SUB		R3,R14,R2 ; R3= Total Time - Remaining Time
+	BE 		R3,R0,FINISHED ; if done counting, finish
+	SW		R3,OFSHEX(R1) ; Put remaining time on HEX *DISPLAY*
+	;Check for press of K2
+	LW		R4,OFSKEY(R1) ; Get key value into R3
+	ANDI 	R4,R4,4 ; AND key[3:0] with 4
+	ADDI	R5,R0,4	; put 2 into R3
+	BT	 	R5,R4,STOP ; if K[2] IS pressed, STOP
+	BT		R0,R0,RUN ;	else keep running
+STOP:
+	; R3 is time remaining
+	; Wait until K[2] is pressed
+	;Check for press of K2
+	LW		R4,OFSKEY(R1) ; Get key value into R3
+	ANDI 	R4,R4,4 ; AND key[3:0] with 4
+	ADDI	R5,R0,4	; put 2 into R3
+	BNE	 	R5,R4,STOP ; if K[2] is not pressed pressed, keep waiting
+		; now K[2] is pressed, resume running
+	SW 		R3,TIMER(R1) ; Write time remaining to TIMER
+	BT 		R0,R0,RUN ; resume running loop
+FINISH:
+	SW		R0,OFSHEX(R1) ; Put zero on HEX  *DISPLAY*
+	; flash lights
