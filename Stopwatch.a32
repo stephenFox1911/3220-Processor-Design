@@ -1,61 +1,117 @@
-; Addresses for I/O
+; Addresses for I/O]
 .NAME IOBASE= 0xF0000000
 .NAME	OFSHEX= 0x00000000
 .NAME	OFSLEDR=0x00000004
 .NAME	OFSLEDG=0x00000008
 .NAME	OFSKEY =0x00000010
 .NAME	SW     =0x00000014
-.NAME	TIMER=0x00000020
+.NAME	TCNT=0x00000020
+.NAME	TCTL=0x00000120
+.NAME	TLIM=0x00000024
 
 	.ORIG 0x40
 RESET:
 	MVHI	R1,IOBASE ; set R1 to beginning of I/O addresses
 	ANDI	R0,R0,0 ; R0 will be zero
 	SW		R0,OFSHEX(R1) ; Put zero on HEX
+	
 SECONDS:
 	LW		R2,SW(R1)	;Get value from switches
 	; Convert switches value to number of seconds
+	ANDI 	R5,R2,240 ; Mask: xxkkkkxxxx
+	ADDI 	R7,R0,96 ; load with 96 for compare
+	BLT 	R5,R7,SSKIP5 ; value less than 96 skip changing
+	ADDI 	R5,R0,80 ; R5 now kinda holds 5 
+SSKIP5:
+	ANDI 	R6,R2,15 ; Mask: xxxxxxkkkk
+	ADDI 	R7,R0,10 ; load with 10 for compare
+	BLT 	R6,R7,SSKIP9 ; value less than 10 skip changing
+	ADDI 	R6,R0,9 ; R6 now holds 9
+SSKIP9:
+	ADD 	R4,R5,R6 ; combine 10s and 1s for total seconds
 	;Check for press of K1
 	LW		R3,OFSKEY(R1) ; Get key value into R3
 	ANDI 	R3,R3,2 ; AND key[3:0] with 2
-	ADDI	R2,R0,2	; put 2 into R3
+	ADDI	R2,R0,2	; put 2 into R2
 	BNE 	R2,R3,SECONDS ; if K[1] isn't pressed, loop in SECONDS
-	SW		R2,OFSHEX(R1) ; Put seconds value on HEX  *DISPLAY*
-	; add seconds to total (R14)
+	
+	SW		R4,OFSHEX(R1) ; Put seconds value on HEX  
+	ADDI 	R14,R4,0 ; save seconds
+	
 MINUTES: 
 	LW		R2,SW(R1)	;Get value from switches
 	; Convert switches value to number of minutes
+	ANDI	 R5,R2,240 ; Mask: xxkkkkxxxx
+	ADDI 	R7,R0,96 ; load with 96 for compare
+	BLT 	R5,R7,MSKIP5 ; value less than 6 skip changing
+	ADDI 	R5,R0,80 ; R5 now holds 5
+MSKIP5:
+	ANDI 	R6,R2,15 ; Mask: xxxxxxkkkk
+	ADDI 	R7,R0,10 ; load with 10 for compare
+	BLT 	R6,R7,MSKIP9 ; value less than 10 skip changing
+	ADDI 	R6,R0,9 ; R6 now holds 9
+MSKIP9:
+	ADD 	R4,R5,R6 ; combine 10s and 1s for total minutes
 	;Check for press of K1
 	LW		R3,OFSKEY(R1) ; Get key value into R3
 	ANDI 	R3,R3,2 ; AND key[3:0] with 2
-	ADDI	R2,R0,2	; put 2 into R3
+	ADDI	R2,R0,2	; put 2 into R2
 	BNE 	R2,R3,MINUTES ; if K[1] isn't pressed, loop in MINUTES
-	SW		R2,OFSHEX(R1) ; Put minutes value on HEX  *DISPLAY*
-	; add minutes to total (R14)
+	
+	; bit shift minutes 8 times for HEX display
+	ADD		R5,R4,R4
+	ADD		R5,R5,R5
+	ADD		R5,R5,R5
+	ADD 	R5,R5,R5
+	ADD 	R5,R5,R5
+	ADD		R5,R5,R5
+	ADD 	R5,R5,R5
+	ADD 	R5,R5,R5
+	ADD		R6,R5,R14 ; add mins and secs for mmmmmmmmssssssss for HEX
+	SW		R6,OFSHEX(R1) ; Put full value on HEX  
+	ADDI 	R13,R5,0 ; save minutes
 
-	SW 		R14,TIMER(R1) ; Write time to TIMER
-RUN:
-	LW 		R2,TIMER(R1) ; Read time from TIMER
-	SUB		R3,R14,R2 ; R3= Total Time - Remaining Time
-	BE 		R3,R0,FINISHED ; if done counting, finish
-	SW		R3,OFSHEX(R1) ; Put remaining time on HEX *DISPLAY*
-	;Check for press of K2
-	LW		R4,OFSKEY(R1) ; Get key value into R3
-	ANDI 	R4,R4,4 ; AND key[3:0] with 4
-	ADDI	R5,R0,4	; put 2 into R3
-	BT	 	R5,R4,STOP ; if K[2] IS pressed, STOP
-	BT		R0,R0,RUN ;	else keep running
+RUN: 
+	ADDI 	R2,R0,1000 ; fill R2 with 1000(milliseconds)
+	SW		R2,TLIM(R1)	; set Timer Limit to 1000 (1 second)
+	SW		R0,TCNT(R1) ; set Timer Count to 0
+	
+	ADD		R2,R13,R14 ; add mins and secs for mmmmmmmmssssssss for HEX
+	SW		R2,OFSHEX(R1) ; Put full value on HEX  
+	
+	LOOP:
+		;Check for press of K2
+		LW		R3,OFSKEY(R1) ; Get key value into R3
+		ANDI 	R3,R3,4 ; AND key[3:0] with 4
+		ADDI	R2,R0,4	; put 4 into R2
+		BEQ		R2,R3,STOP ; if K[2] is pressed, STOP
+		
+		SW		R2,TCTL(R1) ; get Timer Control values
+		ANDI 	R2,R2,1 ; mask to get bit 0 (ready bit)
+		BEQ		R2,R0,LOOP ; if timer isn't done, keep looping
+		
+	BNE		R14,R0,DECSEC ; if seconds are not 0, decrement Seconds
+	BEQ		R13,R0,FINISH ; Mins and secs are 0, finish
+		; seconds are 0, mins > 0
+	SUBI	R13,R13,1 ; decrement mins *broke*
+	ADDI	R14,R0,59 ; seconds = 59 *broke*
+	BEQ		R0,R0,RUN ; Jump to RUN, print new values
+	
+	DECSEC:
+	SUBI	R14,R14,1 ; decrement seconds
+	BEQ		R0,R0,RUN ; Jump to RUN, print new values
+
+	
 STOP:
-	; R3 is time remaining
-	; Wait until K[2] is pressed
-	;Check for press of K2
-	LW		R4,OFSKEY(R1) ; Get key value into R3
-	ANDI 	R4,R4,4 ; AND key[3:0] with 4
-	ADDI	R5,R0,4	; put 2 into R3
-	BNE	 	R5,R4,STOP ; if K[2] is not pressed pressed, keep waiting
-		; now K[2] is pressed, resume running
-	SW 		R3,TIMER(R1) ; Write time remaining to TIMER
-	BT 		R0,R0,RUN ; resume running loop
+	SW		R0,TLIM(R1)	; set Timer Limit to 0 to halt countdown
+	SLOOP:
+		;Check for press of K2
+		LW		R3,OFSKEY(R1) ; Get key value into R3
+		ANDI 	R3,R3,4 ; AND key[3:0] with 4
+		ADDI	R2,R0,4	; put 4 into R2
+		BEQ		R2,R3,RUN ; if K[2] is pressed, RUN
+		BEQ		R0,R0,SLOOP ; loop waiting for K[2]
+		
 FINISH:
-	SW		R0,OFSHEX(R1) ; Put zero on HEX  *DISPLAY*
-	; flash lights
+
+	END
