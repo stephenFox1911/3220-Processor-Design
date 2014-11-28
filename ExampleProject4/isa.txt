@@ -1,0 +1,80 @@
+    ADD   : {FMT: "RD,RS1,RS2",   IWORD: "0000 0000 RD   RS1  RS2  000000000000"}
+    SUB   : {FMT: "RD,RS1,RS2",   IWORD: "0000 0001 RD   RS1  RS2  000000000000"}
+    AND   : {FMT: "RD,RS1,RS2",   IWORD: "0000 0100 RD   RS1  RS2  000000000000"}
+    OR    : {FMT: "RD,RS1,RS2",   IWORD: "0000 0101 RD   RS1  RS2  000000000000"}
+    XOR   : {FMT: "RD,RS1,RS2",   IWORD: "0000 0110 RD   RS1  RS2  000000000000"}
+    NAND  : {FMT: "RD,RS1,RS2",   IWORD: "0000 1100 RD   RS1  RS2  000000000000"}
+    NOR   : {FMT: "RD,RS1,RS2",   IWORD: "0000 1101 RD   RS1  RS2  000000000000"}
+    NXOR  : {FMT: "RD,RS1,RS2",   IWORD: "0000 1110 RD   RS1  RS2  000000000000"}
+                                                
+    ADDI  : {FMT: "RD,RS1,Imm",   IWORD: "1000 0000 RD   RS1  Imm"}
+    SUBI  : {FMT: "RD,RS1,Imm",   IWORD: "1000 0001 RD   RS1  Imm"}
+    ANDI  : {FMT: "RD,RS1,Imm",   IWORD: "1000 0100 RD   RS1  Imm"}
+    ORI   : {FMT: "RD,RS1,Imm",   IWORD: "1000 0101 RD   RS1  Imm"}
+    XORI  : {FMT: "RD,RS1,Imm",   IWORD: "1000 0110 RD   RS1  Imm"}
+    NANDI : {FMT: "RD,RS1,Imm",   IWORD: "1000 1100 RD   RS1  Imm"}
+    NORI  : {FMT: "RD,RS1,Imm",   IWORD: "1000 1101 RD   RS1  Imm"}
+    NXORI : {FMT: "RD,RS1,Imm",   IWORD: "1000 1110 RD   RS1  Imm"}
+    MVHI  : {FMT: "RD,Imm",       IWORD: "1000 1011 RD   0000 ImmHi"}
+
+    LW    : {FMT: "RD,Imm(RS1)",  IWORD: "1001 0000 RD   RS1  Imm"}
+    SW    : {FMT: "RS2,Imm(RS1)", IWORD: "0101 0000 RS1  RS2  Imm"}
+
+    F     : {FMT: "RD,RS1,RS2",   IWORD: "0010 0000 RD   RS1  RS2  000000000000"}
+    EQ    : {FMT: "RD,RS1,RS2",   IWORD: "0010 0001 RD   RS1  RS2  000000000000"}
+    LT    : {FMT: "RD,RS1,RS2",   IWORD: "0010 0010 RD   RS1  RS2  000000000000"}
+    LTE   : {FMT: "RD,RS1,RS2",   IWORD: "0010 0011 RD   RS1  RS2  000000000000"}
+    T     : {FMT: "RD,RS1,RS2",   IWORD: "0010 1000 RD   RS1  RS2  000000000000"}
+    NE    : {FMT: "RD,RS1,RS2",   IWORD: "0010 1001 RD   RS1  RS2  000000000000"}
+    GTE   : {FMT: "RD,RS1,RS2",   IWORD: "0010 1010 RD   RS1  RS2  000000000000"}
+    GT    : {FMT: "RD,RS1,RS2",   IWORD: "0010 1011 RD   RS1  RS2  000000000000"}
+                                                     
+    FI    : {FMT: "RD,RS1,Imm",   IWORD: "1010 0000 RD   RS1  Imm"}
+    EQI   : {FMT: "RD,RS1,Imm",   IWORD: "1010 0001 RD   RS1  Imm"}
+    LTI   : {FMT: "RD,RS1,Imm",   IWORD: "1010 0010 RD   RS1  Imm"}
+    LTEI  : {FMT: "RD,RS1,Imm",   IWORD: "1010 0011 RD   RS1  Imm"}
+    TI    : {FMT: "RD,RS1,Imm",   IWORD: "1010 1000 RD   RS1  Imm"}
+    NEI   : {FMT: "RD,RS1,Imm",   IWORD: "1010 1001 RD   RS1  Imm"}
+    GTEI  : {FMT: "RD,RS1,Imm",   IWORD: "1010 1010 RD   RS1  Imm"}
+    GTI   : {FMT: "RD,RS1,Imm",   IWORD: "1010 1011 RD   RS1  Imm"}
+
+    BF    : {FMT: "RS1,RS2,Imm",  IWORD: "0110 0000 RS1  RS2  PCRel"}
+    BEQ   : {FMT: "RS1,RS2,Imm",  IWORD: "0110 0001 RS1  RS2  PCRel"}
+    BLT   : {FMT: "RS1,RS2,Imm",  IWORD: "0110 0010 RS1  RS2  PCRel"}
+    BLTE  : {FMT: "RS1,RS2,Imm",  IWORD: "0110 0011 RS1  RS2  PCRel"}
+    BEQZ  : {FMT: "RS1,Imm",      IWORD: "0110 0101 RS1  0000 PCRel"}
+    BLTZ  : {FMT: "RS1,Imm",      IWORD: "0110 0110 RS1  0000 PCRel"}
+    BLTEZ : {FMT: "RS1,Imm",      IWORD: "0110 0111 RS1  0000 PCRel"}
+
+    BT    : {FMT: "RS1,RS2,Imm",  IWORD: "0110 1000 RS1  RS2  PCRel"}
+    BNE   : {FMT: "RS1,RS2,Imm",  IWORD: "0110 1001 RS1  RS2  PCRel"}
+    BGTE  : {FMT: "RS1,RS2,Imm",  IWORD: "0110 1010 RS1  RS2  PCRel"}
+    BGT   : {FMT: "RS1,RS2,Imm",  IWORD: "0110 1011 RS1  RS2  PCRel"}
+    BNEZ  : {FMT: "RS1,Imm",      IWORD: "0110 1101 RS1  0000 PCRel"}
+    BGTEZ : {FMT: "RS1,Imm",      IWORD: "0110 1110 RS1  0000 PCRel"}
+    BGTZ  : {FMT: "RS1,Imm",      IWORD: "0110 1111 RS1  0000 PCRel"}
+
+    JAL   : {FMT: "RD,Imm(RS1)",  IWORD: "1011 0000 RD   RS1  ShImm"}
+
+
+    // B is implemented using BEQ
+    BR    : {FMT: "Imm",          ITEXT: ["BEQ  R6,R6,Imm"]}
+
+    // NOT is implemented using NAND
+    NOT   : {FMT: "RD,RS",        ITEXT: ["NAND RD,RS,RS"]}
+
+    // BLT/BLE/BGT/BGE is implemented using LT/LE/GT/GE and BNEZ
+    BLE   : {FMT: "RS1,RS2,Imm",  ITEXT: ["LTE   R6,RS1,RS2","BNEZ R6,Imm"]}
+    BGE   : {FMT: "RS1,RS2,Imm",  ITEXT: ["GTE   R6,RS1,RS2","BNEZ R6,Imm"]}
+
+    // CALL/RET/JMP is implemented using JAL
+    CALL  : {FMT: "Imm(RS1)",     ITEXT: ["JAL  RA,Imm(RS1)"]}
+    RET   : {FMT: "",             ITEXT: ["JAL  R9,0(RA)"]}
+    JMP   : {FMT: "Imm(RS1)",     ITEXT: ["JAL  R9,Imm(RS1)"]}
+
+    // Custom instructions
+    HALT  : {FMT: "",  IWORD: "0110 1000 0000 0000 1111111111111111"}
+    SET   : {FMT: "RD, Imm", ITEXT: ["ANDI RD,A0,0", "ADDI RD,RD,Imm"]}
+    RST   : {FMT: "RD", ITEXT: ["ANDI RD,RD,0"]}
+    INCREMENT : {FMT: "RS1", ITEXT: ["ADDI RS1, RS1, 1"]}
+    DECREMENT : {FMT: "RS1", ITEXT: ["ADDI RS1, RS1, -1"]}

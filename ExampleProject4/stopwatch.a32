@@ -1,0 +1,283 @@
+.NAME IOBASE= 0xF0000000
+.NAME   OFSHEX= 0x00000000
+.NAME   OFSLEDR=0x00000004
+.NAME   OFSLEDG=0x00000008
+.NAME   OFSKEY =0x00000010
+.NAME   OFSSW  =0x00000014
+.NAME   TCNT   =0x00000020
+.NAME   TLIM   =0x00000024
+.NAME   TCTL   =0x00000120
+.NAME   KCTL   =0x00000110
+.NAME   SCTL   =0x00000114
+
+; A0 = R0 = zero
+; A1 = R1 = minute_timer = 0
+; A2 = R2 = second_timer = 0
+; RV = R3 = return value from subroutine
+; T0 = R4 = minute = 0
+; T1 = R5 = second = 0
+; S0 = R6 = value for the blinking LED
+; S1 = R7 = running state
+; S2 = R8 = HEX
+; R9 = Reserved for RET
+; R10, R11 = tmp (R10 = original, R11 = divider/multiplier/min)
+; GP = R12 = IOBASE
+; FP = R13 = Remainder for DIVD
+; SP = R14 = RA_SAVE
+; RA = R15 = return address
+
+.ORIG 0x40
+    MVHI gp, IOBASE
+    RST A0
+    
+INIT:
+    SW A0, OFSLEDR(gp)
+
+S0:
+    LW R14, OFSSW(gp)       ; get switch value
+    ANDI R10, R14, 0xF  ; R10 = first digit
+    SET R11, 9
+    CALL MIN(A0)
+    AND T1, RV, RV      ; R10 >= 9 ? 9 : R10
+    ANDI R10, R14, 0xF0     ; R10 = second digit
+    SET R11, 0x10       ; divider = 16
+    CALL DIVD(A0)       ; R10 >> 4
+    AND R10, RV, RV         ; R10 >>= 4
+    SET R11, 5          ; R10 >= 9 ? 5 : R10
+    CALL MIN(A0)
+    AND R10, RV, RV
+    SET R11, 10
+    CALL MULT(A0)       ; R10 * 10
+    ADD A2, T1, RV      ; second_timer = first digit + second digit * 10
+    SET R11, 0x10
+    CALL MULT(A0)       ; R10 * 0x10
+    ADD T1, T1, RV      ; second = first digit + second digit * 0x10
+    SW T1, OFSHEX(gp)   ; show second on hex
+    LW S1, OFSSW(gp)
+    
+S0_WAIT:                ; dont do anything until switch changes
+    LW R10, OFSSW(gp)
+    BNE S1, R10, S0
+    
+S0_CHECK:
+    LW R10, OFSKEY(gp)
+    NOT R10, R10
+    ANDI R10, R10, 0xF
+    EQI R11, R10, 0b10
+    BNEZ R11, S1
+    BR S0_WAIT
+    
+S1:
+    LW R14, OFSSW(gp)       ; get switch value
+    ANDI R10, R14, 0xF  ; R10 = first digit
+    SET R11, 9
+    CALL MIN(A0)
+    AND T0, RV, RV      ; R10 >= 9 ? 9 : R10
+    ANDI R10, R14, 0xF0     ; R10 = second digit
+    SET R11, 0x10       ; divider = 16
+    CALL DIVD(A0)       ; R10 >> 4
+    AND R10, RV, RV         ; R10 >>= 4
+    SET R11, 9          ; R10 >= 9 ? 9 : R10
+    CALL MIN(A0)
+    AND R10, RV, RV
+    SET R11, 10
+    CALL MULT(A0)       ; R10 * 10
+    ADD A1, T0, RV      ; minute_timer = first digit + second digit * 10
+    SET R11, 0x10
+    CALL MULT(A0)       ; R10 * 0x10
+    ADD R10, T0, RV         ; minute = first digit + second digit * 0x10
+    SET R11, 0x100
+    CALL MULT(A0)       ; minute *= 0x100
+    ADD S2, T1, RV      ; S2 = second + minute * 0x100
+    SW S2, OFSHEX(gp)   ; show minute and second on hex
+    LW S1, OFSSW(gp)
+
+S1_WAIT:                ; dont do anything until switch changes
+    LW R10, OFSSW(gp)
+    BNE S1, R10, S1
+
+S1_CHECK:
+    LW R10, OFSKEY(gp)
+    NOT R10, R10
+    ANDI R10, R10, 0xF
+    EQI R11, R10, 0b100
+    BNEZ R11, S2
+    EQI R11, R10, 1
+    BNEZ R11, S0
+    BR S1_WAIT
+    
+S2:
+    ADD R10, A1, A2
+    BEQZ R10, FINISH
+    SET R10, 1000
+    SW R10, TLIM(gp)
+    ADDI S1, A0, 1      ; S1 = 1
+    
+S2_RET:
+    SW A0, TCTL(gp)
+    SW A0, TCNT(gp)
+COUNTDOWN:
+    CALL SLEEP(A0)      ; wait for 1 second
+    
+BEQZ A2, SUB_MIN
+    SUBI A2, A2, 1      ; subtract 1 second from second_timer
+    BNEZ A2, NEXT
+    
+SUB_MIN:
+    BEQZ A1, FINISH
+    
+SUBI A1, A1, 1      ; subtract 1 minute from minute_timer
+    ADDI A2, A2, 59     ; set second_timer to 59
+    
+NEXT:   CALL UPDATE(A0)     ; show updated time
+    BR COUNTDOWN        ; continue counting down
+    
+FINISH:
+    SW A0, OFSHEX(gp)
+    SET S0, -1
+    SW S0, OFSLEDR(gp)  ; turn on all LEDRs
+    SET R10, 500
+    SW R10, TLIM(gp)
+    SW A0, TCTL(gp)
+    SW A0, TCNT(gp)
+    
+FINISH_WAIT:
+    LW R10, OFSKEY(gp)
+    NOT R10, R10
+    ANDI R10, R10, 0xF
+    EQI R10, R10, 1
+    BNEZ R10, INIT
+    LW R10, TCTL(gp)
+    BNEZ R10, BLINK
+    BR FINISH_WAIT
+
+BLINK:
+    SW A0, TCTL(gp)
+    NOT S0, S0
+    SW S0, OFSLEDR(gp)
+    BR FINISH_WAIT
+    
+;;;;; SUBROUTINES ;;;;;
+UPDATE:             ; convert the decimal time values to correctly show on hex
+    AND R10, A1, A1     ; R10 = minute_timer
+    SET R11, 10         ; R11 = 10
+    AND SP, RA, RA      ; save RA
+    CALL DIVD(A0)       ; RV = minute_timer / 10
+    AND R10, RV, RV     ; R10 = RV
+    SET R11, 0x10       ; R11 = 0x10
+    CALL MULT(A0)       ; RV = floor(minute_timer/10) * 0x10
+    ADD T0, RV, R13     ; T0 = minute = floor(minute_timer/10) * 0x10 + minute_timer%10
+    
+    AND R10, A2, A2     ; R10 = second_timer
+    SET R11, 10         ; R11 = 10
+    CALL DIVD(A0)       ; RV = second_timer / 10
+    AND R10, RV, RV     ; R10 = RV
+    SET R11, 0x10       ; R11 = 0x10
+    CALL MULT(A0)       ; RV = floor(second_timer/10) * 0x10
+    ADD T1, RV, R13     ; T1 = second = floor(second_timer/10) * 0x10 + second_timer%10
+    
+    AND R10, T0, T0     ; R10 = minute
+    SET R11, 0x100      ; R11 = 0x100
+    CALL MULT(A0)       ; RV = minute * 0x100
+    ADD S2, RV, T1      ; S2 = HEX = minute * 0x100 + second
+    SW S2, OFSHEX(gp)       ; show updated time on hex
+    AND RA, SP, SP      ; restore RA
+    RET
+    
+SLEEP:
+    LW R10, OFSKEY(gp)
+    NOT R10, R10
+    ANDI R10, R10, 0xF
+    EQI R11, R10, 1
+    BNEZ R11, S0            ; reset if key == 1
+    BEQZ R10, RUNNING_CHECK1    ; RUNNING_CHECK1 if key == 0
+    EQI R11, R10, 0b100
+    BNEZ R11, RUNNING_CHECK2    ; RUNNING_CHECK2 if key == 4
+    
+SLEEP_RET:
+    LW R10, TCTL(gp)
+    BEQZ R10, SLEEP
+    SW A0, TCTL(gp)
+    RET
+    
+STOP:
+    LW R10, OFSKEY(gp)
+    NOT R10, R10
+    ANDI R10, R10, 0xF
+    EQI R11, R10, 1
+    BNEZ R11, S0            ; reset if key == 1
+    BEQZ R10, NOT_RUNNING_CHECK1    ; NOT_RUNNING_CHECK1 if key == 0
+    EQI R11, R10, 0b100
+    BNEZ R11, NOT_RUNNING_CHECK2    ; NOT_RUNNING_CHECK2 if key == 4
+    BR STOP             ; STOP
+    
+RUNNING_CHECK1:             ; when running && key == 0
+    NEI R11, S1, 1          ; if S1 != 1:
+    BNEZ R11, SLEEP_RET     ;   SLEEP_RET
+    ADDI S1, A0, 2          ; S1 = 2
+    BR SLEEP_RET            ; SLEEP_RET
+    
+RUNNING_CHECK2:             ; when running && key == 4
+    NEI R11, S1, 2          ; if S1 != 2:
+    BNEZ R11, SLEEP_RET     ;   SLEEP_RET
+    ADDI S1, A0, 3          ; S1 = 3
+    BR STOP             ; STOP
+    
+NOT_RUNNING_CHECK1:         ; when !running && key == 0
+    NEI R11, S1, 3          ; if S1 != 3:
+    BNEZ R11, STOP          ;   STOP
+    ADDI S1, A0, 4          ; S1 = 4
+    BR STOP             ; STOP
+    
+NOT_RUNNING_CHECK2:         ; when !running && key == 4
+    NEI R11, S1, 4          ; if S1 != 4:
+    BNEZ R11, STOP          ; STOP
+    ADDI S1, A0, 1          ; S1 = 1
+    BR S2_RET               ; S2_RET
+    
+MIN:
+    ; R10 = original
+    ; R11 = maximum
+    ; RV = result
+    bgt R10, R11, minimum   ; if (R10 > R11) minimum
+    and RV, R10, R10        ; else return R10
+    ret
+    
+minimum:
+    and RV, R11, R11        ; return R11
+    ret
+    
+MULT:
+    ; R10 = original
+    ; R11 = multiplier
+    ; RV = count -> result
+    rst RV          ; count = 0
+ 
+check_mult:
+    bnez R11, multiply  ; if (multiplier != 0) multiply
+    ret
+
+multiply:
+    subi R11, R11, 1        ; multiplier--
+    add RV, RV, R10         ; count += original
+    br check_mult       ; while (check_mult);
+    
+DIVD:
+    ; R10 = original
+    ; R11 = divider
+    ; RV = count -> result
+    ; R13 = remainder
+    rst RV          ; count = 0
+    and R13, R10, R10   ; remainder = original
+    bnez R11, check_divd    ; if (divider != 0) check
+    ret                 ; else return
+    
+check_divd:
+    bgte R13, R11, divide   ; if (remainder >= divider): divide
+    ret                 ; else: return
+
+divide:
+    addi    RV, RV, 1       ; count++
+    sub     R13, R13, R11   ; remainder -= divider
+    br      check_divd  ; while (check_divd);
+
