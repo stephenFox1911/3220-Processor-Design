@@ -8,7 +8,7 @@
 ;  Number of sorting iterations
 .NAME	ItNum=300
 ; The array starts at data address 0x100 and has 1024 elements (4kB)
-.NAME	Array=0x100
+.NAME	Array=0x1500
 .NAME	ArrayBytes=4096
 ; Addresses for I/O
 .NAME   IOBASE= 0xF0000000
@@ -35,10 +35,6 @@ IntHand:
 	
 	; Decide what to do depending on A0
 	BEQ	A0,A1,KEYS	; if IDN is 1, go to keys handler
-	ADDI A1,A1,1 	; A1 = 2
-	ADDI A1,A1,1 	; A1 = 3
-	BEQ	A0,A1,TIMER	; if IDN is 3, go to Timer handler
-	
 
 	; Restore general-purpose registers
 	LW	  	A1,0(SSP)
@@ -271,7 +267,7 @@ KEYS:
 	BNE 	A2,A1,KDONE ; if key 1 was pressed end, else key 3 was pressed
 	ANDI 	A1,A1,0
 	CALL RUN(A1) ; decide run/stop
-
+KDONE:
 	; replace registers 
 	LW	  	A2,0(SP)
 	ADDI	SP,SP,4
@@ -297,7 +293,7 @@ RUN:
 	ADD		A1,S1,S0 ; add mins and secs for mmmmmmmmssssssss for HEX
 	SW		A1,OFSHEX(GP) ; Put full value on HEX  
 	
-	LOOP:
+LOOP:
 		;Check for press of K2
 		LW		A2,OFSKEY(GP) ; Get key value into A2
 		ANDI 	A2,A2,4 ; AND key[3:0] with 4
@@ -328,15 +324,15 @@ RUN:
 		ADDI	A3,A0,2304 ; Ones place is 9
 		ADD		S1,A3,T1 ; repack 10's and 1's into minutes
 		BEQ		A0,A0,MINHOP ; Jump to MINHOP, print new values
-	DECMINS:
+DECMINS:
 		SUBI	A3,A3,256 ; decrement 1's
 		ADD 	S1,A3,T1 ; repack 10's and 1's into seconds
 	
-	MINHOP:
+MINHOP:
 	ADDI	S0,A0,89 ; seconds = 59 
 	BEQ		A0,A0,RUN ; Jump to RUN, print new values
 	
-	DECSEC:
+DECSEC:
 		ANDI 	A3,S0,15 ; Mask: xxxxxxkkkk
 		ANDI	T1,S0,240 ; Mask: xxkkkkxxxx
 		BNE		A3,A0,DECONES ; one's place isn't zero, decrement
@@ -345,14 +341,16 @@ RUN:
 			ADDI	A3,A0,9 ; Ones place is 9
 			ADD		S0,A3,T1 ; repack 10's and 1's into seconds
 			BEQ		A0,A0,RUN ; Jump to RUN, print new values
-		DECONES:
+DECONES:
 			SUBI	A3,A3,1 ; decrement 1's
 			ADD 	S0,A3,T1 ; repack 10's and 1's into seconds
 			BEQ		A0,A0,RUN ; Jump to RUN, print new values
 
 STOP:
 	;save timer value to memory
-	SW 	A1,TVALUE(A0) 
+	SW 	S0,TSEC(A0)
+	SW 	S1,TMIN(A0) 
+
 	RET
 
 FINISH: 
@@ -361,7 +359,7 @@ FINISH:
 	ADDI 	A1,A0,1 ; A1 is 1 to turn on LEDs
 	ADDI	A2,A0,500 ; 500 milliseconds for timer
 	
-	LIGHTLOOP:
+LIGHTLOOP:
 		LW		S2,OFSKEY(GP) ; Get key value into A2
 		ANDI 	S2,S2,1 ; AND key[3:0] with 1
 		ADDI	S1,A0,1	; put 1 into A1
@@ -371,7 +369,7 @@ FINISH:
 		SW		A2,TLIM(GP)	; set Timer Limit 
 		SW		A0,TCNT(GP) ; set Timer Count to 0
 	
-		WAITING:
+WAITING:
 			SW		A3,TCTL(GP) ; get Timer Control values
 			ANDI 	A3,A3,1 ; mask to get bit 0 (ready bit)
 			BEQ		A3,A0,WAITING ; if timer isn't done, keep looping
@@ -380,6 +378,6 @@ FINISH:
 		ADDI 	A1,A0,0 ; A1 is 1 to turn off LEDs
 		BEQ		A0,A0,LIGHTLOOP ; keep looping
 		
-		SETONE:
+SETONE:
 			ADDI 	A1,A0,1 ; A1 is 1 to turn on LEDs
 		BEQ		A0,A0,LIGHTLOOP ; keep looping forever

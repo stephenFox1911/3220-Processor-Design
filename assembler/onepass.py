@@ -45,7 +45,8 @@ sub=[
 "SUBI",
 "NOT",
 "CALL",
-"JMP"]
+"JMP",
+"RETI"]
 
 alt=[
 "SW",
@@ -77,7 +78,9 @@ endingZeroes=[
 "T",
 "NE",
 "GTE",
-"GT"]
+"GT",
+"RSR",
+"WSR"]
 #array of locations that have an empty label
 empty={}
 #name and value in hex
@@ -93,6 +96,7 @@ lookup={
 	"R8":'8',
 	"R9":'9',
 	"R10":'A',
+	"SSP":'A',
 	"R11":'B',
 	"A0":'0',
 	"A1":'1',
@@ -108,6 +112,10 @@ lookup={
 	"FP":'D',
 	"SP":'E',
 	"RA":'F',
+	"PCS":'00',
+	"IHA":'10',
+	"IRA":'20',
+	"IDN":'30',
 	"ADD":'00',
 	"SUB":'01',
 	"AND":'04',
@@ -158,6 +166,8 @@ lookup={
 	"BGTEZ":'6E',
 	"BGTZ":'6E',
 	"JAL":'B0',
+	"RSR":'F2',
+	"WSR":'F3',
 }
 
 
@@ -215,6 +225,9 @@ def substitute(instruction, out):
 
 	elif instruction[0].upper() == "RET" :
 		instr='B09F0000'
+
+	elif instruction[0].upper() == "RETI" :
+		instr='F1000000'
 
 	elif instruction[0].upper() == "CALL" :
 		instr='B0F'
@@ -295,7 +308,7 @@ def assembleAlternate(instruction, out):
 def readInstruction(instruction, out):
 	decoded=[]
 	temp=instruction[0]
-	print(instruction)
+	
 	if temp.upper() in lookup :	#replace instruction with decoded value
 		decoded.append(lookup[temp.upper()])
 	else :
@@ -382,8 +395,9 @@ def read(program, out):
 	
 	for line in program :
 		temp = string.split(line)
-		
+
 		if not temp : continue	#empty line
+
 		if temp[0][0]==';' : continue	#comment line, ignore
 		if temp[0][0]=='.' : #Declaration line, save
 			if temp[0][1] is 'O' :	#Origin declartion
