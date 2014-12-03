@@ -80,7 +80,7 @@ RUN:
 	SW		R2,OFSHEX(R1) ; Put full value on HEX  
 	
 	LOOP:
-		
+		;Check for press of K2
 		LW		R3,OFSKEY(R1) ; Get key value into R3
 		ANDI 	R3,R3,4 ; AND key[3:0] with 4
 		ADDI	R2,R0,4	; put 4 into R2

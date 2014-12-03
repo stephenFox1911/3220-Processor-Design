@@ -1,0 +1,385 @@
+; Saved Timer value location
+.NAME	TMIN=7996
+.NAME 	TSEC=8000
+; Stack begins at the very top of memory
+.NAME	StkTop=8192
+; System Stack begins at the 
+.NAME	SYSSTACK=0xBEEF
+;  Number of sorting iterations
+.NAME	ItNum=300
+; The array starts at data address 0x100 and has 1024 elements (4kB)
+.NAME	Array=0x100
+.NAME	ArrayBytes=4096
+; Addresses for I/O
+.NAME   IOBASE= 0xF0000000
+.NAME	OFSHEX= 0x00000000
+.NAME	OFSLEDR=0x00000004
+.NAME	OFSLEDG=0x00000008
+.NAME	OFSKEY =0x00000010
+.NAME	SW     =0x00000014
+.NAME	TCNT=0x00000020
+.NAME	TCTL=0x00000120
+.NAME	TLIM=0x00000024
+
+	.ORIG 0x04 
+IntHand:
+	; Save general purpose registers using SSP
+	ADDI SSP,SSP,-4	;move stack pointer
+	SW	 A0,0(SSP) 	;save A0
+	ADDI SSP,SSP,-4	;move stack pointer
+	SW	 A1,0(SSP)	;save A1
+
+	ANDI A1,A1,0 	;load 0 into A1
+	ADDI A1,A1,1 	;load 1 into A1 for comparison
+	RSR A0,IDN ; load device number into A0
+	
+	; Decide what to do depending on A0
+	BEQ	A0,A1,KEYS	; if IDN is 1, go to keys handler
+	ADDI A1,A1,1 	; A1 = 2
+	ADDI A1,A1,1 	; A1 = 3
+	BEQ	A0,A1,TIMER	; if IDN is 3, go to Timer handler
+	
+
+	; Restore general-purpose registers
+	LW	  	A1,0(SSP)
+	ADDI	SSP,SSP,4
+	LW 		A0,0(SSP)
+	ADDI 	SSP,SSP,4
+	; Return and enable interrupts
+	RETI
+
+	;  Now the actual code
+	.ORIG 0x40
+	; Set up Timer values
+	MVHI	SSP,SYSSTACK	; set system stack
+	MVHI	GP,IOBASE ; set GP to beginning of I/O addresses
+RESET:	
+	ANDI	A0,A0,0 ; A0 will be zero
+	SW		A0,OFSHEX(GP) ; Put zero on HEX
+	
+SECONDS:
+	LW		A1,SW(GP)	;Get value from switches
+	; Convert switches value to number of seconds
+	ANDI 	A2,A1,240 ; Mask: xxkkkkxxxx
+	ADDI 	A3,A0,96 ; load with 96 for compare
+	BLT 	A2,A3,SSKIP5 ; value less than 96 skip changing
+	ADDI 	A2,A0,80 ; A2 now kinda holds 5 
+SSKIP5:
+	ANDI 	T0,A1,15 ; Mask: xxxxxxkkkk
+	ADDI 	A3,A0,10 ; load with 10 for compare
+	BLT 	T0,A3,SSKIP9 ; value less than 10 skip changing
+	ADDI 	T0,A0,9 ; T0 now holds 9
+SSKIP9:
+	ADD 	T1,A2,T0 ; combine 10s and 1s for total seconds
+	;Check for press of K1
+	LW		S0,OFSKEY(GP) ; Get key value into S0
+	ANDI 	S0,S0,2 ; AND key[3:0] with 2
+	ADDI	A1,A0,2	; put 2 into A1
+	BNE 	A1,S0,SECONDS ; if K[1] isn't pressed, loop in SECONDS
+	
+	SW		T1,OFSHEX(GP) ; Put seconds value on HEX  
+	ADDI 	S2,T1,0 ; save seconds
+	
+MINUTES: 
+	LW		A1,SW(GP)	;Get value from switches
+	; Convert switches value to number of minutes
+	ANDI	A2,A1,240 ; Mask: xxkkkkxxxx
+	ADDI 	A3,A0,96 ; load with 96 for compare
+	BLT 	A2,A3,MSKIP5 ; value less than 6 skip changing
+	ADDI 	A2,A0,80 ; A2 now holds 5
+MSKIP5:
+	ANDI 	T0,A1,15 ; Mask: xxxxxxkkkk
+	ADDI 	A3,A0,10 ; load with 10 for compare
+	BLT 	T0,A3,MSKIP9 ; value less than 10 skip changing
+	ADDI 	T0,A0,9 ; T0 now holds 9
+MSKIP9:
+	ADD 	T1,A2,T0 ; combine 10s and 1s for total minutes
+	;Check for press of K1
+	LW		S0,OFSKEY(GP) ; Get key value into S0
+	ANDI 	S0,S0,2 ; AND key[3:0] with 2
+	ADDI	A1,A0,2	; put 2 into A1
+	BNE 	A1,S0,MINUTES ; if K[1] isn't pressed, loop in MINUTES
+	
+	; bit shift minutes 8 times for HEX display
+	ADD		A2,T1,T1
+	ADD		A2,A2,A2
+	ADD		A2,A2,A2
+	ADD 	A2,A2,A2
+	ADD 	A2,A2,A2
+	ADD		A2,A2,A2
+	ADD 	A2,A2,A2
+	ADD 	A2,A2,A2
+	ADD		T0,A2,S2 ; add mins and secs for mmmmmmmmssssssss for HEX
+	SW		T0,OFSHEX(GP) ; Put full value on HEX
+	SW 		A2,TMIN(A0) ; Store timer value to memory 
+	SW 		S2,TSEC(A0) ; Store timer value to memory 
+	; Start Sorter 2
+	; SP Points to the top of the stack
+	MVHI	SP,StkTop
+	ADDI	SP,SP,StkTop
+	; Our GP will point to the beginning of I/O addresses
+	MVHI	GP,IOBASE
+	; Our S0 will be zero
+	ANDI	S0,S0,0
+	SW		S0,OFSLEDR(GP)	; Turn off LEDR
+	SW		S0,OFSLEDG(GP)	; Turn off LEDG
+	
+	; Initialize the array
+	ADDI 	T0,S0,Array			; T0 is CurPtr, set to start of array
+	ADDI	T1,T0,ArrayBytes	; T1 is EndPtr, set to end of array
+	; Array elements will be 9, 22, 35, etc.
+	ADDI	S1,S0,9				; S1 is the current value of the array element for initialization
+Init:
+	SW		S1,0(T0)		; Store value into an element
+	ADDI	S1,S1,13		; Add 13 to the value for next element
+	ADDI	T0,T0,4			; Move to next element
+	BNE		T0,T1,Init		; if(CurPtr!=EndPtr) goto Init;
+	CALL	ChkAsc(S0)		; Call ChkAsc
+	
+	ADDI	S1,S0,ItNum		; We will keep the iteration count in S1
+	SW		S1,OFSHEX(GP)	; Display loop counter
+MainLoop:
+	ADDI	A0,S0,Array
+	ADDI	A1,A0,ArrayBytes
+	CALL	SortDesc(S0)	; SortDesc(Array,ArrayBytes)
+	CALL	ChkDesc(S0)		; ChkDesc()
+	ADDI	A0,S0,Array
+	ADDI	A1,A0,ArrayBytes
+	CALL	SortAsc(S0)		; SortAsc(Array,ArrayBytes)
+	CALL 	ChkAsc(S0)		; ChkAsc()
+	; Decrement iteration counter and loop back if not done
+	ADDI	S1,S1,-1
+	SW		S1,OFSHEX(GP)	; Display loop counter
+	BNEZ	S1,MainLoop
+Done:
+	NOT		T0,S0			; All-ones in T0
+	SW		T0,OFSLEDG(GP)	; Turn on LEDG
+	SW		S0,OFSLEDR(GP)	; Turn off LEDR
+	BT		T0,S0,Done		; Loop forever
+
+	; Verifies that the array is sorted in ascending order
+ChkAsc:
+	ADDI	A0,S0,Array
+	ADDI	A1,A0,ArrayBytes
+	; Array elements should be 9,22,35,etc.
+	ADDI	A2,S0,9
+LoopChkAsc:
+	LW		T0,0(A0)
+	BEQ		T0,A2,GoodChkAsc
+ErrChkAsc:
+	SW		T0,OFSHEX(GP)	; Put value we read on HEX
+	ADDI	T1,S0,0x3E0
+	SW		T1,OFSLEDR(GP)	; Turn on upper half of LEDR
+	BT 		T0,T0,ErrChkAsc	; Loop forever
+GoodChkAsc:
+	ADDI	A2,a2,13
+	ADDI	A0,A0,4
+	BNE		A0,A1,LoopChkAsc
+	RET
+
+	; Verifies that the array is sorted in descending order
+ChkDesc:
+	ADDI	A1,S0,Array
+	ADDI	A0,A1,ArrayBytes
+	; Array elements should be 9,22,35, etc.
+	ADDI	A2,S0,9
+LoopChkDesc:
+	SUBI	A0,A0,4
+	LW		T1,0(A0)
+	BEQ		A2,T1,GoodChkDesc
+ErrChkDesc:
+	SW		T1,OFSHEX(GP)	; Put value we read on HEX
+	ADDI	T0,S0,0x01F
+	SW		T0,OFSLEDR(GP)	; Turn on lower half of LEDR
+	BT 		T1,T0,ErrChkDesc		; Loop forever
+GoodChkDesc:
+	ADDI	A2,A2,13
+	BNE		A1,A0,LoopChkDesc
+	RET
+
+SortAsc:; SortAsc(beg,end)
+	; Sorts an array that starts at beg and ends at end
+	; Sorts in ascending order (low to high values)
+	; The sorting strategy is immediate-swap selection sort
+	; Outer loop (ptr "i" in A0) goes from start to end
+SortAscLoopI:
+	BEQ     A0,A1,SortAscEndI
+	LW		T0,0(A0)	; T0 will be equal to what should be in *i
+	; Inner loop (ptr "j" in A2) goes from i+4 to end
+    ADDI    A2,A0,4
+SortAscLoopJ:  
+    BEQ     A2,A1,SortAscEndJ
+	LW		T1,0(A2)	; T1=*j
+	BLTE	T0,T1,SortAscNoSwap
+	SW		T0,0(A2)	; *j=T0 (*j becomes what was in *i)
+	ADD		T0,T1,S0	; T0=T1 (*i becomes what was in *j)
+SortAscNoSwap:
+	ADDI	A2,A2,4
+	BT		T0,T1,SortAscLoopJ
+SortAscEndJ:
+	SW		T0,0(A0)	; Save T0 back into *i
+	ADDI	A0,A0,4
+	BT		A0,A1,SortAscLoopI
+SortAscEndI:
+	RET
+	
+SortDesc:; SortDesc(beg,end)
+	; Sorts an array that starts at beg and ends at end
+	; Sorts in descending order (high to low values)
+	; The sorting strategy is immediate-swap selection sort
+	; Outer loop (ptr "i" in T0) goes from start to end
+	ADDI	T0,A0,0
+SortDescLoopI:
+	BEQ     T0,A1,SortDescEndI
+	; Inner loop (ptr "j" in T1) goes from i+4 to end
+    ADDI    T1,T0,4
+SortDescLoopJ:  
+    BEQ     T1,A1,SortDescEndJ
+	LW		A2,0(T0)	; A2=*i
+	LW		A3,0(T1)	; A3=*j
+	BGTE	A2,A3,SortDescNoSwap
+	SW		A2,0(T1)	; *j=A2
+	SW		A3,0(T0)	; *i=A3
+SortDescNoSwap:
+	ADDI	T1,T1,4
+	BT		A0,A0,SortDescLoopJ
+SortDescEndJ:
+	ADDI	T0,T0,4
+	BT		A0,A0,SortDescLoopI
+SortDescEndI:
+	RET
+
+; Done with Sorter2
+; Start with device handlers
+KEYS:
+	;save registers
+	ADDI SP,SP,-4	;move stack pointer
+	SW	 A0,0(SP) 	;save A0
+	ADDI SP,SP,-4	;move stack pointer
+	SW	 A1,0(SP) 	;save A1
+	ADDI SP,SP,-4	;move stack pointer
+	SW	 A2,0(SP) 	;save A2
+
+
+	LW		A0,OFSKEY(R1)	;Get value from Keys
+	ANDI 	A2,A0,1 	; and with 1 to check for key 0
+	ANDI 	A1,A1,0
+	ADDI 	A1,A1,1 	; load A1 with 1
+	BEQ 	A2,A1,RESET ; if k[0] is pressed, global RESET
+	ANDI 	A2,A0,2 	; and with 3 check for key 2
+	ADDI 	A1,A1,2 	; A1 has 3
+	BNE 	A2,A1,KDONE ; if key 1 was pressed end, else key 3 was pressed
+	ANDI 	A1,A1,0
+	CALL RUN(A1) ; decide run/stop
+
+	; replace registers 
+	LW	  	A2,0(SP)
+	ADDI	SP,SP,4
+	LW	  	A1,0(SP)
+	ADDI	SP,SP,4
+	LW	  	A0,0(SP)
+	ADDI	SP,SP,4
+
+	RETI
+
+;subroutines
+RUN:
+	;S0 = seconds
+	;S1 = minutes
+	ANDI 	A0,A0,0
+	LW 		S0,TSEC(A0)	; load timer value
+	LW 		S1,TMIN(A0)	; load timer value
+
+	ADDI 	A1,A0,1000 ; fill A1 with 1000(milliseconds)
+	SW		A1,TLIM(GP)	; set Timer Limit to 1000 (1 second)
+	SW		A0,TCNT(GP) ; set Timer Count to 0
+	
+	ADD		A1,S1,S0 ; add mins and secs for mmmmmmmmssssssss for HEX
+	SW		A1,OFSHEX(GP) ; Put full value on HEX  
+	
+	LOOP:
+		;Check for press of K2
+		LW		A2,OFSKEY(GP) ; Get key value into A2
+		ANDI 	A2,A2,4 ; AND key[3:0] with 4
+		ADDI	A1,A0,4	; put 4 into A1
+		BEQ		A1,A2,STOP ; if K[2] is pressed, STOP
+		
+		SW		A1,TCTL(GP) ; get Timer Control values
+		ANDI 	A1,A1,1 ; mask to get bit 0 (ready bit)
+		BEQ		A1,A0,LOOP ; if timer isn't done, keep looping
+		
+	BNE		S0,A0,DECSEC ; if seconds are not 0, decrement Seconds
+	BEQ		S1,A0,FINISH ; Mins and secs are 0, finish
+		; seconds are 0, mins > 0
+	
+	ANDI 	A3,S1,3840 ; Mask: xxxxkkkk
+	ADDI	T0,A0,7680
+	ADDI	T0,T0,7680
+	ADDI	T0,T0,7680
+	ADDI	T0,T0,7680
+	ADDI	T0,T0,7680
+	ADDI	T0,T0,7680
+	ADDI	T0,T0,7680
+	ADDI	T0,T0,7680 ; working around overflow
+	AND		T1,S1,T0 ; Mask: long
+	BNE		A3,A0,DECMINS ; one's place isn't zero, decrement
+		; Ones is zero, decrement 10's reset ones to 9
+		SUBI	T1,T1,4096 ; decrements 10's place by 1
+		ADDI	A3,A0,2304 ; Ones place is 9
+		ADD		S1,A3,T1 ; repack 10's and 1's into minutes
+		BEQ		A0,A0,MINHOP ; Jump to MINHOP, print new values
+	DECMINS:
+		SUBI	A3,A3,256 ; decrement 1's
+		ADD 	S1,A3,T1 ; repack 10's and 1's into seconds
+	
+	MINHOP:
+	ADDI	S0,A0,89 ; seconds = 59 
+	BEQ		A0,A0,RUN ; Jump to RUN, print new values
+	
+	DECSEC:
+		ANDI 	A3,S0,15 ; Mask: xxxxxxkkkk
+		ANDI	T1,S0,240 ; Mask: xxkkkkxxxx
+		BNE		A3,A0,DECONES ; one's place isn't zero, decrement
+			; Ones is zero, decrement 10's reset ones to 9
+			SUBI	T1,T1,16 ; decrements 10's place by 1
+			ADDI	A3,A0,9 ; Ones place is 9
+			ADD		S0,A3,T1 ; repack 10's and 1's into seconds
+			BEQ		A0,A0,RUN ; Jump to RUN, print new values
+		DECONES:
+			SUBI	A3,A3,1 ; decrement 1's
+			ADD 	S0,A3,T1 ; repack 10's and 1's into seconds
+			BEQ		A0,A0,RUN ; Jump to RUN, print new values
+
+STOP:
+	;save timer value to memory
+	SW 	A1,TVALUE(A0) 
+	RET
+
+FINISH: 
+	ANDI 	A0,A0,0
+
+	ADDI 	A1,A0,1 ; A1 is 1 to turn on LEDs
+	ADDI	A2,A0,500 ; 500 milliseconds for timer
+	
+	LIGHTLOOP:
+		LW		S2,OFSKEY(GP) ; Get key value into A2
+		ANDI 	S2,S2,1 ; AND key[3:0] with 1
+		ADDI	S1,A0,1	; put 1 into A1
+		BEQ		S1,S2,RESET ; if K[0] is pressed, RESET
+
+		SW		A1,OFSLEDR(GP) ; toggle LEDR
+		SW		A2,TLIM(GP)	; set Timer Limit 
+		SW		A0,TCNT(GP) ; set Timer Count to 0
+	
+		WAITING:
+			SW		A3,TCTL(GP) ; get Timer Control values
+			ANDI 	A3,A3,1 ; mask to get bit 0 (ready bit)
+			BEQ		A3,A0,WAITING ; if timer isn't done, keep looping
+		
+		BEQ		A1,A0,SETONE ; if LEDRvalue is 0, set to one
+		ADDI 	A1,A0,0 ; A1 is 1 to turn off LEDs
+		BEQ		A0,A0,LIGHTLOOP ; keep looping
+		
+		SETONE:
+			ADDI 	A1,A0,1 ; A1 is 1 to turn on LEDs
+		BEQ		A0,A0,LIGHTLOOP ; keep looping forever

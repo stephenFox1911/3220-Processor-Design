@@ -295,7 +295,7 @@ def assembleAlternate(instruction, out):
 def readInstruction(instruction, out):
 	decoded=[]
 	temp=instruction[0]
-
+	print(instruction)
 	if temp.upper() in lookup :	#replace instruction with decoded value
 		decoded.append(lookup[temp.upper()])
 	else :
