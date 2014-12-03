@@ -1,11 +1,11 @@
-module Timer(ABUS, DBUS, WE, INTR, CLK, LOCK, DEBUG, FLUSH);
+module Timer(ABUS, DBUS, WE, INTR, CLK, LOCK, DEBUG, FLUSH, IRQ);
 
 	parameter BITS, BASE, DIV;
 
 	input [BITS - 1 : 0] ABUS;
 	inout [BITS - 1 : 0] DBUS;
 	input WE, CLK, LOCK, FLUSH;
-	output INTR;
+	output INTR, IRQ;
 
 	output [7:0] DEBUG = {TCNT[5:0], TCTL[2], TCTL[0]};
 	reg [BITS - 1 : 0] TCNT, TLIM, TCTL, count;
@@ -42,5 +42,7 @@ module Timer(ABUS, DBUS, WE, INTR, CLK, LOCK, DEBUG, FLUSH);
 
 	assign DBUS = rdCnt ? TCNT : rdLim ? TLIM : rdCtl ? TCTL : {BITS{1'bz}};
 	assign INTR = 0;
+	assign IRQ = TCTL[2];
+
 
 endmodule

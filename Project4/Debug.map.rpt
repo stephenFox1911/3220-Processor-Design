@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Debug
-Tue Nov 18 05:06:38 2014
+Wed Nov 19 15:18:58 2014
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -83,13 +83,13 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Nov 18 05:06:38 2014           ;
+; Analysis & Synthesis Status        ; Successful - Wed Nov 19 15:18:58 2014           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; Debug                                           ;
 ; Top-level Entity Name              ; Project2                                        ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 2,939                                           ;
-;     Total combinational functions  ; 2,407                                           ;
+; Total logic elements               ; 2,985                                           ;
+;     Total combinational functions  ; 2,453                                           ;
 ;     Dedicated logic registers      ; 894                                             ;
 ; Total registers                    ; 894                                             ;
 ; Total pins                         ; 61                                              ;
@@ -239,16 +239,16 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-------------------------+
 ; Resource                                    ; Usage                   ;
 +---------------------------------------------+-------------------------+
-; Estimated Total logic elements              ; 2,939                   ;
+; Estimated Total logic elements              ; 2,985                   ;
 ;                                             ;                         ;
-; Total combinational functions               ; 2407                    ;
+; Total combinational functions               ; 2453                    ;
 ; Logic element usage by number of LUT inputs ;                         ;
-;     -- 4 input functions                    ; 1663                    ;
+;     -- 4 input functions                    ; 1707                    ;
 ;     -- 3 input functions                    ; 432                     ;
-;     -- <=2 input functions                  ; 312                     ;
+;     -- <=2 input functions                  ; 314                     ;
 ;                                             ;                         ;
 ; Logic elements by mode                      ;                         ;
-;     -- normal mode                          ; 2121                    ;
+;     -- normal mode                          ; 2167                    ;
 ;     -- arithmetic mode                      ; 286                     ;
 ;                                             ;                         ;
 ; Total registers                             ; 894                     ;
@@ -260,7 +260,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; Embedded Multiplier 9-bit elements          ; 0                       ;
 ; Maximum fan-out node                        ; ClkDivider:clkdi|clkReg ;
 ; Maximum fan-out                             ; 893                     ;
-; Total fan-out                               ; 11933                   ;
+; Total fan-out                               ; 12113                   ;
 ; Average fan-out                             ; 3.52                    ;
 +---------------------------------------------+-------------------------+
 
@@ -270,18 +270,18 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                               ; Library Name ;
 +-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------+--------------+
-; |Project2                                 ; 2407 (53)         ; 894 (0)      ; 65536       ; 0            ; 0       ; 0         ; 61   ; 0            ; |Project2                                                                         ; work         ;
-;    |Alu:alu1|                             ; 369 (369)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Alu:alu1                                                                ; work         ;
+; |Project2                                 ; 2453 (51)         ; 894 (0)      ; 65536       ; 0            ; 0       ; 0         ; 61   ; 0            ; |Project2                                                                         ; work         ;
+;    |Alu:alu1|                             ; 367 (367)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Alu:alu1                                                                ; work         ;
 ;    |BranchAddrCalculator:bac|             ; 30 (30)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|BranchAddrCalculator:bac                                                ; work         ;
 ;    |ClkDivider:clkdi|                     ; 52 (52)           ; 33 (33)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|ClkDivider:clkdi                                                        ; work         ;
-;    |Controller:cont|                      ; 85 (85)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Controller:cont                                                         ; work         ;
+;    |Controller:cont|                      ; 94 (94)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Controller:cont                                                         ; work         ;
 ;    |DataMemory:dataMem|                   ; 0 (0)             ; 0 (0)        ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|DataMemory:dataMem                                                      ; work         ;
 ;       |altsyncram:data_rtl_0|             ; 0 (0)             ; 0 (0)        ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|DataMemory:dataMem|altsyncram:data_rtl_0                                ; work         ;
 ;          |altsyncram_ghc1:auto_generated| ; 0 (0)             ; 0 (0)        ; 65536       ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|DataMemory:dataMem|altsyncram:data_rtl_0|altsyncram_ghc1:auto_generated ; work         ;
 ;    |HEXD:hex_d|                           ; 8 (8)             ; 16 (16)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|HEXD:hex_d                                                              ; work         ;
-;    |InstMemory:instMem|                   ; 270 (270)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|InstMemory:instMem                                                      ; work         ;
-;    |KeyD:key_d|                           ; 104 (104)         ; 5 (5)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|KeyD:key_d                                                              ; work         ;
-;    |Mux2to1:muxAluIn|                     ; 63 (63)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Mux2to1:muxAluIn                                                        ; work         ;
+;    |InstMemory:instMem|                   ; 312 (312)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|InstMemory:instMem                                                      ; work         ;
+;    |KeyD:key_d|                           ; 102 (102)         ; 5 (5)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|KeyD:key_d                                                              ; work         ;
+;    |Mux2to1:muxAluIn|                     ; 58 (58)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Mux2to1:muxAluIn                                                        ; work         ;
 ;    |Mux4to1:muxMemOut|                    ; 64 (64)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Mux4to1:muxMemOut                                                       ; work         ;
 ;    |Mux4to1:muxPcOut|                     ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Mux4to1:muxPcOut                                                        ; work         ;
 ;    |PcLogic:pcLogic|                      ; 30 (30)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|PcLogic:pcLogic                                                         ; work         ;
@@ -289,7 +289,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;    |RegisterFile:regFile|                 ; 700 (700)         ; 512 (512)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|RegisterFile:regFile                                                    ; work         ;
 ;    |SWD:sw_d|                             ; 111 (61)          ; 75 (42)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|SWD:sw_d                                                                ; work         ;
 ;       |ClkDivider:divider|                ; 50 (50)           ; 33 (33)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|SWD:sw_d|ClkDivider:divider                                             ; work         ;
-;    |Timer:timer_d|                        ; 281 (280)         ; 99 (98)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Timer:timer_d                                                           ; work         ;
+;    |Timer:timer_d|                        ; 282 (281)         ; 99 (98)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Timer:timer_d                                                           ; work         ;
 ;       |ClkDivider:divider|                ; 1 (1)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|Timer:timer_d|ClkDivider:divider                                        ; work         ;
 ;    |dec2_7seg:hex0Converter|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|dec2_7seg:hex0Converter                                                 ; work         ;
 ;    |dec2_7seg:hex1Converter|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|dec2_7seg:hex1Converter                                                 ; work         ;
@@ -297,10 +297,10 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;    |dec2_7seg:hex3Converter|              ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|dec2_7seg:hex3Converter                                                 ; work         ;
 ;    |ledgD:ledg_d|                         ; 5 (5)             ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|ledgD:ledg_d                                                            ; work         ;
 ;    |ledrD:ledr_d|                         ; 13 (13)           ; 10 (10)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|ledrD:ledr_d                                                            ; work         ;
-;    |pipeline_reg:pipe_reg|                ; 106 (0)           ; 104 (0)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg                                                   ; work         ;
+;    |pipeline_reg:pipe_reg|                ; 111 (0)           ; 104 (0)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg                                                   ; work         ;
 ;       |bufRegister:PCBuff|                ; 32 (32)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:PCBuff                                ; work         ;
 ;       |bufRegister:aluOutBuff|            ; 33 (33)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:aluOutBuff                            ; work         ;
-;       |bufRegister:dataInBuff|            ; 34 (34)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:dataInBuff                            ; work         ;
+;       |bufRegister:dataInBuff|            ; 39 (39)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:dataInBuff                            ; work         ;
 ;       |bufRegister:memWrEnBuff|           ; 0 (0)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:memWrEnBuff                           ; work         ;
 ;       |bufRegister:mulSelBuff|            ; 1 (1)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:mulSelBuff                            ; work         ;
 ;       |bufRegister:regWrAddrBuff|         ; 6 (6)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Project2|pipeline_reg:pipe_reg|bufRegister:regWrAddrBuff                         ; work         ;
@@ -443,7 +443,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; Register:pc|dataOut[6]                 ; 96      ;
+; Register:pc|dataOut[6]                 ; 112     ;
 ; Total number of inverted registers = 1 ;         ;
 +----------------------------------------+---------+
 
@@ -453,25 +453,24 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
-; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Project2|SWD:sw_d|counter[4]                                        ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |Project2|SWD:sw_d|counter[10]                                       ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Project2|pipeline_reg:pipe_reg|bufRegister:regWrAddrBuff|dataOut[0] ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; Yes        ; |Project2|Register:pc|dataOut[0]                                     ;
-; 5:1                ; 29 bits   ; 87 LEs        ; 58 LEs               ; 29 LEs                 ; Yes        ; |Project2|Register:pc|dataOut[10]                                    ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; Yes        ; |Project2|ledrD:ledr_d|ledrData[0]                                   ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Project2|ledgD:ledg_d|ledgData[7]                                   ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |Project2|HEXD:hex_d|hdata[9]                                        ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |Project2|Mux4to1:muxMemOut|Mux30                                    ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; No         ; |Project2|Timer:timer_d|DBUS[31]                                     ;
+; 5:1                ; 29 bits   ; 87 LEs        ; 58 LEs               ; 29 LEs                 ; Yes        ; |Project2|Register:pc|dataOut[29]                                    ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; Yes        ; |Project2|ledrD:ledr_d|ledrData[7]                                   ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |Project2|ledgD:ledg_d|ledgData[1]                                   ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |Project2|HEXD:hex_d|hdata[3]                                        ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |Project2|Mux4to1:muxMemOut|Mux22                                    ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; No         ; |Project2|Timer:timer_d|DBUS[25]                                     ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |Project2|Timer:timer_d|DBUS[0]                                      ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector12                                 ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector4                                  ;
-; 32:1               ; 15 bits   ; 315 LEs       ; 75 LEs               ; 240 LEs                ; No         ; |Project2|Alu:alu1|Mux20                                             ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; No         ; |Project2|Controller:cont|Selector17                                 ;
-; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector4                                  ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector10                                 ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 16 LEs               ; 8 LEs                  ; No         ; |Project2|Controller:cont|Selector18                                 ;
+; 32:1               ; 15 bits   ; 315 LEs       ; 75 LEs               ; 240 LEs                ; No         ; |Project2|Alu:alu1|Mux19                                             ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |Project2|Controller:cont|Selector8                                  ;
 ; 8:1                ; 4 bits    ; 20 LEs        ; 8 LEs                ; 12 LEs                 ; No         ; |Project2|Controller:cont|Selector2                                  ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |Project2|Controller:cont|Selector5                                  ;
+; 7:1                ; 4 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; No         ; |Project2|Controller:cont|Selector6                                  ;
 ; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |Project2|Controller:cont|Selector20                                 ;
-; 20:1               ; 16 bits   ; 208 LEs       ; 112 LEs              ; 96 LEs                 ; No         ; |Project2|Alu:alu1|Mux8                                              ;
+; 20:1               ; 16 bits   ; 208 LEs       ; 112 LEs              ; 96 LEs                 ; No         ; |Project2|Alu:alu1|Mux3                                              ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------+
 
 
@@ -499,7 +498,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; ADDR_HEX            ; 11110000000000000000000000000000 ; Unsigned Binary ;
 ; ADDR_LEDR           ; 11110000000000000000000000000100 ; Unsigned Binary ;
 ; ADDR_LEDG           ; 11110000000000000000000000001000 ; Unsigned Binary ;
-; IMEM_INIT_FILE      ; Sort2_counter.mif                ; String          ;
+; IMEM_INIT_FILE      ; stopwatch.mif                    ; String          ;
 ; IMEM_ADDR_BIT_WIDTH ; 11                               ; Signed Integer  ;
 ; IMEM_DATA_BIT_WIDTH ; 32                               ; Signed Integer  ;
 ; IMEM_PC_BITS_HI     ; 13                               ; Signed Integer  ;
@@ -564,14 +563,14 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 +-----------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: InstMemory:instMem ;
-+----------------+-------------------+----------------------------+
-; Parameter Name ; Value             ; Type                       ;
-+----------------+-------------------+----------------------------+
-; MEM_INIT_FILE  ; Sort2_counter.mif ; String                     ;
-; ADDR_BIT_WIDTH ; 11                ; Signed Integer             ;
-; DATA_BIT_WIDTH ; 32                ; Signed Integer             ;
-; N_WORDS        ; 2048              ; Signed Integer             ;
-+----------------+-------------------+----------------------------+
++----------------+---------------+--------------------------------+
+; Parameter Name ; Value         ; Type                           ;
++----------------+---------------+--------------------------------+
+; MEM_INIT_FILE  ; stopwatch.mif ; String                         ;
+; ADDR_BIT_WIDTH ; 11            ; Signed Integer                 ;
+; DATA_BIT_WIDTH ; 32            ; Signed Integer                 ;
+; N_WORDS        ; 2048          ; Signed Integer                 ;
++----------------+---------------+--------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -968,7 +967,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:43     ;
+; Top            ; 00:00:33     ;
 +----------------+--------------+
 
 
@@ -978,7 +977,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Tue Nov 18 05:05:45 2014
+    Info: Processing started: Wed Nov 19 15:18:17 2014
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Project2 -c Debug
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 1 design units, including 1 entities, in source file negregister.v
@@ -1177,15 +1176,15 @@ Warning (13004): Presettable and clearable registers converted to equivalent cir
 Info (17049): 32 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 3152 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 3198 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 46 output pins
-    Info (21061): Implemented 3059 logic cells
+    Info (21061): Implemented 3105 logic cells
     Info (21064): Implemented 32 RAM segments
 Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 79 warnings
-    Info: Peak virtual memory: 481 megabytes
-    Info: Processing ended: Tue Nov 18 05:06:39 2014
-    Info: Elapsed time: 00:00:54
-    Info: Total CPU time (on all processors): 00:00:51
+    Info: Peak virtual memory: 475 megabytes
+    Info: Processing ended: Wed Nov 19 15:18:58 2014
+    Info: Elapsed time: 00:00:41
+    Info: Total CPU time (on all processors): 00:00:40
 
 

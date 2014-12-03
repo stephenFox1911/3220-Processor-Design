@@ -1,4 +1,4 @@
-module SWDevice(ABUS,DBUS,FLUSH,WE,INTR,CLK,LOCK,SW,DEBUG);
+module SWDevice(ABUS,DBUS,FLUSH,WE,INTR,CLK,LOCK,SW,DEBUG,IRQ);
   parameter BITS;
   parameter BASE;
   parameter DEBOUNCE_CYCLES;
@@ -13,6 +13,7 @@ module SWDevice(ABUS,DBUS,FLUSH,WE,INTR,CLK,LOCK,SW,DEBUG);
 
   output INTR;
   output [12:0] DEBUG = {SW[9:0],IE,OR,RE};
+  output IRQ;
 
   wire selSW = (ABUS == BASE)&& !FLUSH;
   wire rdSW = (!WE) && selSW;
@@ -66,5 +67,6 @@ module SWDevice(ABUS,DBUS,FLUSH,WE,INTR,CLK,LOCK,SW,DEBUG);
               rdSCtrl ? {{(BITS-9){1'b0}},IE,5'b0,OR,1'b0,RE} :
               {BITS{1'bz}};
   assign INTR = IE;
+  assign IRQ = IE && RE;
 
 endmodule

@@ -1,4 +1,4 @@
-module KeyDevice(ABUS,DBUS,WE,INTR,CLK,LOCK,KEY,FLUSH,DEBUG);
+module KeyDevice(ABUS,DBUS,WE,INTR,CLK,LOCK,KEY,FLUSH,DEBUG,IRQ);
     parameter BITS;
     parameter BASE;
     input [BITS - 1 : 0] ABUS;
@@ -7,6 +7,7 @@ module KeyDevice(ABUS,DBUS,WE,INTR,CLK,LOCK,KEY,FLUSH,DEBUG);
     input [3:0] KEY;
     output INTR;
     output [10:0] DEBUG = {PREV_KEY[3:0], KEY[3:0], IE, OR, RE};
+	 output IRQ;
     reg [3:0] PREV_KEY;
     reg IE, OR, RE;
 
@@ -41,4 +42,6 @@ module KeyDevice(ABUS,DBUS,WE,INTR,CLK,LOCK,KEY,FLUSH,DEBUG);
                 rdKCtrl ? {{(BITS-9){1'b0}}, IE,5'b0,OR,1'b0,RE} :
                 {BITS{1'bz}};
     assign INTR = IE;
+	 assign IRQ = IE && RE;
+
 endmodule

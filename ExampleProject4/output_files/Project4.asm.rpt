@@ -1,6 +1,6 @@
 Assembler report for Project4
-Thu Nov 27 16:11:34 2014
-Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+Mon Dec 01 01:15:04 2014
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
 ---------------------
@@ -10,8 +10,8 @@ Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/jspark/Desktop/amir-cs3220-example/cs3220-examples/Project4/output_files/Project4.sof
-  6. Assembler Device Options: C:/Users/jspark/Desktop/amir-cs3220-example/cs3220-examples/Project4/output_files/Project4.pof
+  5. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/ExampleProject4/output_files/Project4.sof
+  6. Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/ExampleProject4/output_files/Project4.pof
   7. Assembler Messages
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Thu Nov 27 16:11:34 2014 ;
+; Assembler Status      ; Successful - Mon Dec 01 01:15:04 2014 ;
 ; Revision Name         ; Project4                              ;
 ; Top-level Entity Name ; Processor                             ;
 ; Family                ; Cyclone II                            ;
@@ -83,30 +83,30 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------------------------+
 ; File Name                                                                                      ;
 +------------------------------------------------------------------------------------------------+
-; C:/Users/jspark/Desktop/amir-cs3220-example/cs3220-examples/Project4/output_files/Project4.sof ;
-; C:/Users/jspark/Desktop/amir-cs3220-example/cs3220-examples/Project4/output_files/Project4.pof ;
+; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/ExampleProject4/output_files/Project4.sof ;
+; C:/Users/Chris/Dropbox/classes/3220-Processor-Design/ExampleProject4/output_files/Project4.pof ;
 +------------------------------------------------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/jspark/Desktop/amir-cs3220-example/cs3220-examples/Project4/output_files/Project4.sof ;
+; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/ExampleProject4/output_files/Project4.sof ;
 +----------------+---------------------------------------------------------------------------------------------------------+
 ; Option         ; Setting                                                                                                 ;
 +----------------+---------------------------------------------------------------------------------------------------------+
 ; Device         ; EP2C20F484C7                                                                                            ;
-; JTAG usercode  ; 0x00469FDF                                                                                              ;
-; Checksum       ; 0x00469FDF                                                                                              ;
+; JTAG usercode  ; 0x00460941                                                                                              ;
+; Checksum       ; 0x00460941                                                                                              ;
 +----------------+---------------------------------------------------------------------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/jspark/Desktop/amir-cs3220-example/cs3220-examples/Project4/output_files/Project4.pof ;
+; Assembler Device Options: C:/Users/Chris/Dropbox/classes/3220-Processor-Design/ExampleProject4/output_files/Project4.pof ;
 +--------------------+-----------------------------------------------------------------------------------------------------+
 ; Option             ; Setting                                                                                             ;
 +--------------------+-----------------------------------------------------------------------------------------------------+
 ; Device             ; EPCS16                                                                                              ;
 ; JTAG usercode      ; 0x00000000                                                                                          ;
-; Checksum           ; 0x1D941DA9                                                                                          ;
+; Checksum           ; 0x1D958C6B                                                                                          ;
 ; Compression Ratio  ; 2                                                                                                   ;
 +--------------------+-----------------------------------------------------------------------------------------------------+
 
@@ -115,16 +115,16 @@ applicable agreement for further details.
 ; Assembler Messages ;
 +--------------------+
 Info: *******************************************************************
-Info: Running Quartus II 32-bit Assembler
+Info: Running Quartus II 64-Bit Assembler
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Thu Nov 27 16:11:30 2014
+    Info: Processing started: Mon Dec 01 01:15:02 2014
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off Project4 -c Project4
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
-Info: Quartus II 32-bit Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 359 megabytes
-    Info: Processing ended: Thu Nov 27 16:11:34 2014
-    Info: Elapsed time: 00:00:04
-    Info: Total CPU time (on all processors): 00:00:03
+Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 440 megabytes
+    Info: Processing ended: Mon Dec 01 01:15:04 2014
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:02
 
 

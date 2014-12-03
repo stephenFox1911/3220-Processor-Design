@@ -1,0 +1,18 @@
+module int_ctrl (IRQ_k, IRQ_sw, IRQ, IDN);
+	parameter BIT_WIDTH = 32;
+
+	
+	input IRQ_k, IRQ_sw, IRQ_t;
+	output IRQ;
+	output reg IDN;
+	
+	assign IRQ = IRQ_k || IRQ_sw || IRQ_t;
+	
+	always@(posedge CLK) begin
+		assign IDN = IRQ_k ? 1:
+						 IRQ_sw ? 2:
+						 IRQ_t ? 3:
+						 0;
+	end
+	
+endmodule

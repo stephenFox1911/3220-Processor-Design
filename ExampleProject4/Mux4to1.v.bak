@@ -1,0 +1,15 @@
+module Mux4to1(sel, dInSrc1, dInSrc2, dInSrc3, dInSrc4, dOut);
+	parameter BIT_WIDTH = 32;
+	
+	input [1 : 0] sel;
+	input [BIT_WIDTH - 1 : 0] dInSrc1, dInSrc2, dInSrc3, dInSrc4;
+	output [BIT_WIDTH - 1 : 0] dOut;
+  
+	assign dOut = case(sel) begin
+						0: dInSrc1;
+						1: dInSrc2:
+						2: dInSrc3;
+						3: dInSrc4;
+					  endcase
+					  
+endmodule

@@ -26,6 +26,8 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
     parameter IMEM_PC_BITS_HI          = IMEM_ADDR_BIT_WIDTH + 2;
     parameter IMEM_PC_BITS_LO          = 2;
     parameter MEM_INIT_FILE        		= "stopwatch.mif";
+	 
+	 parameter IH_ADDRESS			= 32'h10;
 
     // Wires..
     wire pcWrtEn = 1'b1;
@@ -79,7 +81,10 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
       .alusrc(alusrc),
       .branchSel(branchSel),
       .memWriteSel(memWriteSel),
-      .ctrlBit(ctrlBitOut)
+      .ctrlBit(ctrlBitOut),
+		.sysWrEn(sysWrenIn),
+		.sysRead(sysReadIn),
+		.sysRet(sysRetIn)
     );
 
     // Create SignExtension
@@ -125,11 +130,13 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
       .dOut(aluOut)
     );
 
+	 wire sysWrenIn, sysWrenOut, sysReadIn, sysReadOut, sysRetIn, sysRetOut;
     // Create Pipe Buffer
     PipeBuffer pipeBuffer (
       .clk(clk),
       .rst(reset),
-      .nextDrIn(instWord[23:20]),
+		.IRQ(PCS[0] & IRQ),
+      .nextDrIn(sysReadIn ? instWord[19:16] : instWord[23:20]),
       .nextDrOut(nextDrOut),
       .dFromAlu(aluOut),
       .dPipeAluOut(pipeAluOut),
@@ -137,6 +144,8 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
       .dSr2Out(pipeSr2Out),
       .branchIn(pcAdderOut),
       .branchOut(branchOut),
+		.IHA(iha_out),
+		.IRA(ira_out),
       .pipePcIn(incrementedPC),
       .pipePcOut(pipePcOut),
       .ctrlIn(ctrlBitOut),
@@ -145,11 +154,83 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
       .regWrite(regWrite),
       .pcMux(pcmux),
       .jal(jal),
-      .flush(flush)
+      .flush(flush),
+		.sysWrenIn(sysWrenIn),	//system reg write enable
+		.sysWrenOut(sysWrenOut),
+		.sysReadIn(sysReadIn),	//system reg read flag
+		.sysReadOut(sysReadOut),
+		.sysSelIn(instWord[23:20]),	//select value for reading system regs
+		.sysSelOut(sysSel),
+		.sysRetIn(sysRetIn),
+		.sysRetOut(sysRetOut)
     );
 
     assign abus = pipeAluOut;
     assign dbus = memWrite ? pipeSr2Out : {DBITS{1'bz}};
+	 
+	 wire [DBITS - 1: 0] ira_out, iha_out, idn_out;
+	 wire [1:0] pcs_out;
+	 
+	 wire [3:0] sysSel;
+	 
+	 //write if ie and interrupted, or wsr
+	 Register #(DBITS, 0) IRA (
+      .clk(clk),
+      .reset(reset),
+      .wrtEn((sysSel == 2 & sysWrenOut) | (PCS[0] & IRQ)),
+      .dataIn(IRQ ? pipePcOut : pipeSr2Out),
+      .dataOut(ira_out)
+    );
+	 
+	 //write on wsr
+	 Register #(DBITS, IH_ADDRESS) IHA (
+      .clk(clk),
+      .reset(reset),
+      .wrtEn(sysSel == 1 & sysWrenOut),
+      .dataIn(pipeSr2Out),
+      .dataOut(iha_out)
+    );
+	 
+	 //write if ie and interrupted
+	 Register #(DBITS, 0) IDN (
+      .clk(clk),
+      .reset(reset),
+      .wrtEn(PCS[0] & IRQ),
+      .dataIn(idn_in),
+      .dataOut(idn_out)
+    );
+	 
+	 //write if ie and interrupted, and on reti
+	 //bit 1 is oie
+	 //bit 0 is ie
+	 Register #(2, 2'b11) PCS (
+      .clk(clk),
+      .reset(reset),
+      .wrtEn(sysRetOut | (PCS[0] & IRQ)),
+      .dataIn(sysRetOut ? {PCS[1], PCS[1]} : {PCS[0], 1'b0}),		
+      .dataOut(pcs_out)
+    );
+	 
+	 wire [DBITS - 1: 0] sysRegOut;
+	 Mux4to1 srOut(
+		.sel(sysSel),
+		.dInSrc1({29'b0, pcs_out}),
+		.dInSrc2(iha_out),
+		.dInSrc3(ira_out),
+		.dInSrc4(idn_out),
+		.dOut(sysRegOut)
+	 );
+	 
+	 wire IRQ, IRQ_k, IRQ_sw, IRQ_t;
+	 
+	 int_ctrl interrupter (
+		.clk(clk),
+		.IRQ_k(IRQ_k),
+		.IRQ_sw(IRQ_sw),
+		.IRQ_t(IRQ_t),
+		.IRQ(IRQ),		//output is IRQ inputs or'd together
+		.IDN(idn_in)	//feeds into IDN register
+	 );
 
     DataMemory #(.MEM_INIT_FILE(MEM_INIT_FILE)) dataMemory (
         .ABUS(abus),
@@ -168,7 +249,8 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
         .CLK(clk),
         .LOCK(lock),
         .FLUSH(flush),
-        .DEBUG()
+        .DEBUG(),
+		  .IRQ(IRQ_t)
     );
 
     KeyDevice #(.BITS(DBITS),.BASE(ADDR_KDATA)) key_device(
@@ -180,7 +262,8 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
         .LOCK(lock),
         .KEY(KEY),
         .FLUSH(flush),
-        .DEBUG()
+        .DEBUG(),
+		  .IRQ(IRQ_k)
     );
 
    SWDevice #(.BITS(DBITS), .BASE(ADDR_SDATA), .DEBOUNCE_CYCLES(100000)) sw_device(
@@ -192,7 +275,8 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
        .LOCK(lock),
        .SW(SW),
        .FLUSH(flush),
-       .DEBUG()
+       .DEBUG(),
+		 .IRQ(IRQ_sw)
    );
 
     HexDevice #(.BITS(DBITS),.BASE(ADDR_HEX)) hex_device (
@@ -229,11 +313,12 @@ module Processor(SW,KEY,CLOCK_50,LEDR,LEDG,HEX0,HEX1,HEX2,HEX3);
     );
 
     // Create dataMux
-    Mux3to1 #(DBITS) dataMux (
-      .sel({jal & pcmux, memtoReg}),
+    Mux4to1 #(DBITS) dataMux (
+      .sel({jal & (pcmux | sysReadOut), memtoReg}),	//jal doesn't do anything else, is hijacked by rsr and wsr
       .dInSrc1(pipeAluOut),
       .dInSrc2(dbus),
       .dInSrc3(pipePcOut),   //check
+		.dInSrc4(sysRegOut),
       .dOut(dataMuxOut)
     );
 
