@@ -1,0 +1,29 @@
+; Addresses for I/O
+.NAME   IOBASE= 0xF0000000
+.NAME	OFSHEX= 0x00000000
+.NAME	OFSLEDR=0x00000004
+.NAME	OFSLEDG=0x00000008
+.NAME	OFSKEY =0x00000010
+.NAME	SW     =0x00000014
+.NAME	TCNT=0x00000020
+.NAME	TCTL=0x00000120
+.NAME	TLIM=0x00000024
+
+
+	
+	;  Now the actual code
+	.ORIG 0x40
+	; Set up Timer values
+	; MVHI	SSP,SYSSTACK	; set system stack
+	MVHI	GP,IOBASE ; set GP to beginning of I/O addresses
+	ANDI	A0,A0,0 ; A0 will be zero
+	ANDI	A1,A1,0
+	ADDI	A2,A0,15
+LOOP:
+	SW		A1,OFSHEX(GP) ;	show A1 on hex
+	ADDI	A1,A1,1
+	BNE		A1,A2,LOOP
+	
+	ADDI 	A1,A0,1
+	SW		A1,OFSLEDR(GP)
+	SW		A1,OFSLEDG(GP)
