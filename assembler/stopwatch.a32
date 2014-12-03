@@ -79,7 +79,7 @@ RUN:
 	ADD		R2,R13,R14 ; add mins and secs for mmmmmmmmssssssss for HEX
 	SW		R2,OFSHEX(R1) ; Put full value on HEX  
 	
-	LOOP:
+LOOP:
 		;Check for press of K2
 		LW		R3,OFSKEY(R1) ; Get key value into R3
 		ANDI 	R3,R3,4 ; AND key[3:0] with 4
@@ -104,15 +104,15 @@ RUN:
 		ADDI	R4,R0,2304 ; Ones place is 9
 		ADD		R13,R4,R5 ; repack 10's and 1's into seconds
 		BEQ		R0,R0,MINHOP ; Jump to MINHOP, print new values
-	DECMINS:
+DECMINS:
 		SUBI	R4,R4,256 ; decrement 1's
 		ADD 	R13,R4,R5 ; repack 10's and 1's into seconds
 	
-	MINHOP:
+MINHOP:
 	ADDI	R14,R0,89 ; seconds = 59 *broke*
 	BEQ		R0,R0,RUN ; Jump to RUN, print new values
 	
-	DECSEC:
+DECSEC:
 		ANDI 	R4,R14,15 ; Mask: xxxxxxkkkk
 		ANDI	R5,R14,240 ; Mask: xxkkkkxxxx
 		BNE		R4,R0,DECONES ; one's place isn't zero, decrement
@@ -121,14 +121,14 @@ RUN:
 			ADDI	R4,R0,9 ; Ones place is 9
 			ADD		R14,R4,R5 ; repack 10's and 1's into seconds
 			BEQ		R0,R0,RUN ; Jump to RUN, print new values
-		DECONES:
+DECONES:
 			SUBI	R4,R4,1 ; decrement 1's
 			ADD 	R14,R4,R5 ; repack 10's and 1's into seconds
 			BEQ		R0,R0,RUN ; Jump to RUN, print new values
 
 STOP:
 	SW		R0,TLIM(R1)	; set Timer Limit to 0 to halt countdown
-	SLOOP:
+SLOOP:
 		;Check for press of K2
 		LW		R3,OFSKEY(R1) ; Get key value into R3
 		ANDI 	R3,R3,4 ; AND key[3:0] with 4
@@ -140,12 +140,12 @@ FINISH:
 	ADDI 	R2,R0,1 ; R2 is 1 to turn on LEDs
 	ADDI	R3,R0,500 ; 500 milliseconds for timer
 	
-	LIGHTLOOP:
+LIGHTLOOP:
 		SW		R2,OFSLEDR(R1) ; toggle LEDR
 		SW		R3,TLIM(R1)	; set Timer Limit 
 		SW		R0,TCNT(R1) ; set Timer Count to 0
 	
-		WAITING:
+WAITING:
 			SW		R4,TCTL(R1) ; get Timer Control values
 			ANDI 	R4,R4,1 ; mask to get bit 0 (ready bit)
 			BEQ		R4,R0,WAITING ; if timer isn't done, keep looping
@@ -154,6 +154,6 @@ FINISH:
 		ADDI 	R2,R0,0 ; R2 is 1 to turn off LEDs
 		BEQ		R0,R0,LIGHTLOOP ; keep looping
 		
-		SETONE:
+SETONE:
 			ADDI 	R2,R0,1 ; R2 is 1 to turn on LEDs
 		BEQ		R0,R0,LIGHTLOOP ; keep looping
